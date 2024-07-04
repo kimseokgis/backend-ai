@@ -7,7 +7,7 @@ import (
 
 	"github.com/aiteung/atdb"
 
-	"github.com/kimseokgis/backend-ai/model"
+	"github.com/kimseokgis/backen-ai/model"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 

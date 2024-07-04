@@ -63,13 +63,14 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kimseokgis/backend-ai/model"
+	"github.com/kimseokgis/backen-ai/model"
 	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
+// func Login Register
 func Register(Mongoenv, dbname string, r *http.Request) string {
 	resp := new(model.Credential)
 	userdata := new(model.User)
@@ -91,6 +92,7 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 	return response
 }
 
+// func Login User
 func Login(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	var Response model.Credential
 	Response.Status = false
