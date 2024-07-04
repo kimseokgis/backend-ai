@@ -2,7 +2,11 @@ module github.com/kimseokgis/backen-ai
 
 go 1.22.1
 
+require github.com/whatsauth/watoken v0.1.6
+
 require (
+	aidanwoods.dev/go-paseto v1.5.0 // indirect
+	aidanwoods.dev/go-result v0.1.0 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/gofiber/fiber/v2 v2.52.5 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
