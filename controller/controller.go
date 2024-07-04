@@ -86,7 +86,7 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 			resp.Message = "Gagal Hash Password" + err.Error()
 		}
 		InsertUserdata(conn, userdata.Username, userdata.Email, userdata.Password, hash)
-		resp.Message = "Berhasil Input data"
+		resp.Message = "Berhasil Registrasi Data"
 	}
 	response := ReturnStringStruct(resp)
 	return response
@@ -108,11 +108,11 @@ func Login(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname strin
 			if err != nil {
 				Response.Message = "Gagal Encode Token : " + err.Error()
 			} else {
-				Response.Message = "Selamat Datang"
+				Response.Message = "Selamat Datang Anda Berhasil Login"
 				Response.Token = tokenstring
 			}
 		} else {
-			Response.Message = "Username atau Password Salah"
+			Response.Message = "Username atau Password Anda Salah"
 		}
 	}
 
