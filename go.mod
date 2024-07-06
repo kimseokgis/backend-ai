@@ -2,7 +2,19 @@ module github.com/kimseokgis/backen-ai
 
 go 1.22.1
 
+require github.com/whatsauth/watoken v0.1.6
+
 require (
+	github.com/go-sql-driver/mysql v1.7.1 // indirect
+	github.com/golang-sql/civil v0.0.0-20220223132316-b832511892a9 // indirect
+	github.com/golang-sql/sqlexp v0.1.0 // indirect
+	github.com/microsoft/go-mssqldb v1.0.0 // indirect
+)
+
+require (
+	aidanwoods.dev/go-paseto v1.5.0 // indirect
+	aidanwoods.dev/go-result v0.1.0 // indirect
+	github.com/aiteung/atdb v0.1.7
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/gofiber/fiber/v2 v2.52.5 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
