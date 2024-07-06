@@ -1,6 +1,8 @@
 package url
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
+)
 
-func Web(page *fiber.App) {
+func Web(http.ResponseWriter, *http.Request) {
 }
