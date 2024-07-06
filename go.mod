@@ -3,6 +3,7 @@ module github.com/kimseokgis/backend-ai
 go 1.22.5
 
 require (
+	github.com/GoogleCloudPlatform/functions-framework-go v1.8.1
 	github.com/aiteung/atdb v0.1.7
 	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/whatsauth/watoken v0.1.6
@@ -13,7 +14,6 @@ require (
 require (
 	aidanwoods.dev/go-paseto v1.5.0 // indirect
 	aidanwoods.dev/go-result v0.1.0 // indirect
-	github.com/GoogleCloudPlatform/functions-framework-go v1.8.1 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.15.2 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
@@ -31,7 +31,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
-	github.com/tensorflow/tensorflow v1.15.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
@@ -39,11 +38,9 @@ require (
 	github.com/xdg-go/scram v1.1.2 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.22.0 // indirect
 	golang.org/x/text v0.16.0 // indirect
-	google.golang.org/protobuf v1.34.2 // indirect
 )
