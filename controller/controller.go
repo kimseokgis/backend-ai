@@ -3,6 +3,8 @@ package controller
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"github.com/kimseokgis/backend-ai/helper"
 	"github.com/kimseokgis/backend-ai/model"
 	"net/http"
 	"os"
@@ -13,12 +15,29 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func HomeMakmur(w http.ResponseWriter, r *http.Request) {
+	Response := fmt.Sprintf("Makmur AI chooy %s", "8080")
+	response, err := json.Marshal(Response)
+	if err != nil {
+		http.Error(w, "Internal server error: JSON marshaling failed", http.StatusInternalServerError)
+		return
+	}
+	w.Write(response)
+	return
+}
+
+func NotFound(respw http.ResponseWriter, req *http.Request) {
+	var resp model.Response
+	resp.Message = "Not Found"
+	helper.WriteJSON(respw, http.StatusNotFound, resp)
+}
+
 // func Login Register
 func Register(Mongoenv, dbname string, r *http.Request) string {
 	resp := new(model.Credential)
 	userdata := new(model.User)
 	resp.Status = false
-	conn := MongoCreateConnection(Mongoenv, dbname)
+	conn := helper.MongoCreateConnection(Mongoenv, dbname)
 	err := json.NewDecoder(r.Body).Decode(userdata)
 	if err != nil {
 		resp.Message = "error parsing application/json: " + err.Error()
@@ -28,7 +47,7 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 		if err != nil {
 			resp.Message = "Gagal Hash Password" + err.Error()
 		}
-		InsertUserdata(conn, userdata.Username, userdata.Email, userdata.Password, hash)
+		helper.InsertUserdata(conn, userdata.Username, userdata.Email, userdata.Password, hash)
 		resp.Message = "Berhasil Registrasi Data"
 	}
 	response := ReturnStringStruct(resp)
@@ -39,7 +58,7 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 func Login(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	var Response model.Credential
 	Response.Status = false
-	mconn := SetConnection(MONGOCONNSTRINGENV, dbname)
+	mconn := helper.SetConnection(dbname)
 	var datauser model.User
 	err := json.NewDecoder(r.Body).Decode(&datauser)
 	if err != nil {
