@@ -5,10 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/kimseokgis/backend-ai/model"
-	"github.com/whatsauth/watoken"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
 	"os"
 
 	"github.com/aiteung/atdb"
@@ -53,33 +51,6 @@ func CreateNewUserRole(mongoconn *mongo.Database, collection string, userdata mo
 	return atdb.InsertOneDoc(mongoconn, collection, userdata)
 }
 
-// func Login User
-func Login(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
-	var Response model.Credential
-	Response.Status = false
-	mconn := SetConnection()
-	var datauser model.User
-	err := json.NewDecoder(r.Body).Decode(&datauser)
-	if err != nil {
-		Response.Message = "error parsing application/json: " + err.Error()
-	} else {
-		if IsPasswordValid(mconn, collectionname, datauser) {
-			Response.Status = true
-			tokenstring, err := watoken.Encode(datauser.Username, os.Getenv(PASETOPRIVATEKEYENV))
-			if err != nil {
-				Response.Message = "Gagal Encode Token : " + err.Error()
-			} else {
-				Response.Message = "Selamat Datang Anda Berhasil Login"
-				Response.Token = tokenstring
-			}
-		} else {
-			Response.Message = "Username atau Password Anda Salah"
-		}
-	}
-
-	return GCFReturnStruct(Response)
-}
-
 // return struct
 func GCFReturnStruct(DataStuct any) string {
 	jsondata, _ := json.Marshal(DataStuct)
@@ -102,7 +73,7 @@ func CheckPasswordHash(passwordhash, hash string) bool {
 	return err == nil
 }
 
-func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata model.User) bool {
+func IsPasswordValid(mongoconn *mongo.Database, userdata model.User) bool {
 	filter := bson.M{
 		"$or": []bson.M{
 			{"username": userdata.Username},
@@ -111,7 +82,7 @@ func IsPasswordValid(mongoconn *mongo.Database, collection string, userdata mode
 	}
 
 	var res model.User
-	err := mongoconn.Collection(collection).FindOne(context.TODO(), filter).Decode(&res)
+	err := mongoconn.Collection("users").FindOne(context.TODO(), filter).Decode(&res)
 
 	if err == nil {
 		return CheckPasswordHash(userdata.PasswordHash, res.PasswordHash)
