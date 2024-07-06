@@ -17,7 +17,7 @@ func Web(w http.ResponseWriter, r *http.Request) {
 	case method == "POST" && path == "/registers":
 		controller.RegisterUsers(w, r)
 	case method == "POST" && path == "/login":
-		controller.RegisterUsers(w, r)
+		controller.LoginUsers(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
