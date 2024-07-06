@@ -1,8 +1,9 @@
-package controller
+package helper
 
 import (
 	"context"
 	"fmt"
+	"github.com/kimseokgis/backend-ai/controller"
 	"github.com/kimseokgis/backend-ai/model"
 	"os"
 
@@ -11,9 +12,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SetConnection(MONGOCONNSTRINGENV, dbname string) *mongo.Database {
+func SetConnection(dbname string) *mongo.Database {
 	var DBmongoinfo = atdb.DBInfo{
-		DBString: os.Getenv(MONGOCONNSTRINGENV),
+		DBString: os.Getenv("MONGOSTRING"),
 		DBName:   dbname,
 	}
 	return atdb.MongoConnect(DBmongoinfo)
@@ -47,7 +48,7 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 
 func CreateNewUserRole(mongoconn *mongo.Database, collection string, userdata model.User) interface{} {
 	// Hash the password before storing it
-	hashedPassword, err := HashPass(userdata.PasswordHash)
+	hashedPassword, err := controller.HashPass(userdata.PasswordHash)
 	if err != nil {
 		return err
 	}
