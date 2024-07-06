@@ -26,7 +26,7 @@ jobs:
         run: 'gcloud info'
       - name: 'Deploy a gen 2 cloud function'
         run: |
-          gcloud functions deploy makmurai \
+          gcloud functions deploy backend-ai \
             --region=asia-southeast2 \
             --allow-unauthenticated \
             --entry-point=backend \
