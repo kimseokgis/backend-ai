@@ -30,7 +30,7 @@ func InsertUserdata(MongoConn *mongo.Database, username, email, password, passwo
 	req.Email = email
 	req.Password = password
 	req.PasswordHash = passwordhash
-	return InsertOneDoc(MongoConn, "user", req)
+	return InsertOneDoc(MongoConn, "users", req)
 }
 
 func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (insertedID interface{}) {
