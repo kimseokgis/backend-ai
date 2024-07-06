@@ -16,21 +16,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SetConnection(dbname string) *mongo.Database {
+func SetConnection() *mongo.Database {
 	var DBmongoinfo = atdb.DBInfo{
 		DBString: os.Getenv("MONGOSTRING"),
-		DBName:   dbname,
+		DBName:   "AI",
 	}
 	return atdb.MongoConnect(DBmongoinfo)
-}
-
-func MongoCreateConnection(MongoString, dbname string) *mongo.Database {
-	MongoInfo := atdb.DBInfo{
-		DBString: os.Getenv(MongoString),
-		DBName:   dbname,
-	}
-	conn := atdb.MongoConnect(MongoInfo)
-	return conn
 }
 
 func InsertUserdata(MongoConn *mongo.Database, username, email, password, passwordhash string) (InsertedID interface{}) {
@@ -67,7 +58,7 @@ func Register(Mongoenv, dbname string, r *http.Request) string {
 	resp := new(model.Credential)
 	userdata := new(model.User)
 	resp.Status = false
-	conn := MongoCreateConnection(Mongoenv, dbname)
+	conn := SetConnection()
 	err := json.NewDecoder(r.Body).Decode(userdata)
 	if err != nil {
 		resp.Message = "error parsing application/json: " + err.Error()
