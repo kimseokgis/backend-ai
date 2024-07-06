@@ -14,6 +14,8 @@ func Web(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case method == "GET" && path == "/":
 		controller.HomeMakmur(w, r)
+	case method == "POST" && path == "/registers":
+		controller.RegisterUsers(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
