@@ -53,33 +53,11 @@ func CreateNewUserRole(mongoconn *mongo.Database, collection string, userdata mo
 	return atdb.InsertOneDoc(mongoconn, collection, userdata)
 }
 
-// func Login Register
-func Register(Mongoenv, dbname string, r *http.Request) string {
-	resp := new(model.Credential)
-	userdata := new(model.User)
-	resp.Status = false
-	conn := SetConnection()
-	err := json.NewDecoder(r.Body).Decode(userdata)
-	if err != nil {
-		resp.Message = "error parsing application/json: " + err.Error()
-	} else {
-		resp.Status = true
-		hash, err := HashPass(userdata.PasswordHash)
-		if err != nil {
-			resp.Message = "Gagal Hash Password" + err.Error()
-		}
-		InsertUserdata(conn, userdata.Username, userdata.Email, userdata.Password, hash)
-		resp.Message = "Berhasil Registrasi Data"
-	}
-	response := ReturnStringStruct(resp)
-	return response
-}
-
 // func Login User
 func Login(PASETOPRIVATEKEYENV, MONGOCONNSTRINGENV, dbname, collectionname string, r *http.Request) string {
 	var Response model.Credential
 	Response.Status = false
-	mconn := SetConnection(dbname)
+	mconn := SetConnection()
 	var datauser model.User
 	err := json.NewDecoder(r.Body).Decode(&datauser)
 	if err != nil {

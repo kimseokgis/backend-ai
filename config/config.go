@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kimseokgis/backend-ai/helper"
+	"os"
 )
 
 var Iteung = fiber.Config{
@@ -13,3 +14,6 @@ var Iteung = fiber.Config{
 	AppName:       "Makmur ai",
 }
 var IPport, netstring = helper.GetAddress()
+
+var PrivateKey = os.Getenv("PRIVATEKEY")
+var PublicKey = os.Getenv("PUBLICKEY")
