@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/kimseokgis/backen-ai/helper"
+	"github.com/kimseokgis/backend-ai/helper"
 )
 
 var Iteung = fiber.Config{

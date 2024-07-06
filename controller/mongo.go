@@ -3,11 +3,11 @@ package controller
 import (
 	"context"
 	"fmt"
+	"github.com/kimseokgis/backend-ai/model"
 	"os"
 
 	"github.com/aiteung/atdb"
 
-	"github.com/kimseokgis/backen-ai/model"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
