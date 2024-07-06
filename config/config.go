@@ -9,8 +9,7 @@ var Iteung = fiber.Config{
 	Prefork:       true,
 	CaseSensitive: true,
 	StrictRouting: true,
-	ServerHeader:  "ai-makmur",
-	AppName:       "Makmurizer",
+	ServerHeader:  "Iteung",
+	AppName:       "Message Router",
 }
-
 var IPport, netstring = helper.GetAddress()
