@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
+
 	"github.com/kimseokgis/backend-ai/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
-	"os"
 
 	"github.com/aiteung/atdb"
 
@@ -37,18 +38,6 @@ func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (inser
 		fmt.Printf("InsertOneDoc: %v\n", err)
 	}
 	return insertResult.InsertedID
-}
-
-func CreateNewUserRole(mongoconn *mongo.Database, collection string, userdata model.User) interface{} {
-	// Hash the password before storing it
-	hashedPassword, err := HashPass(userdata.PasswordHash)
-	if err != nil {
-		return err
-	}
-	userdata.PasswordHash = hashedPassword
-
-	// Insert the admin data into the database
-	return atdb.InsertOneDoc(mongoconn, collection, userdata)
 }
 
 // return struct

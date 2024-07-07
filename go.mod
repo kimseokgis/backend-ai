@@ -3,6 +3,7 @@ module github.com/kimseokgis/backend-ai
 go 1.22.5
 
 require (
+	aidanwoods.dev/go-paseto v1.5.0
 	github.com/GoogleCloudPlatform/functions-framework-go v1.8.1
 	github.com/aiteung/atdb v0.1.7
 	github.com/gofiber/fiber/v2 v2.52.5
@@ -12,7 +13,6 @@ require (
 )
 
 require (
-	aidanwoods.dev/go-paseto v1.5.0 // indirect
 	aidanwoods.dev/go-result v0.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.15.2 // indirect
