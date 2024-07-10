@@ -1,9 +1,10 @@
 package url
 
 import (
+	"net/http"
+
 	"github.com/kimseokgis/backend-ai/config"
 	"github.com/kimseokgis/backend-ai/controller"
-	"net/http"
 )
 
 func Web(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +19,10 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		controller.RegisterUsers(w, r)
 	case method == "POST" && path == "/login":
 		controller.LoginUsers(w, r)
+	case method == "GET" && path == "/getuser":
+		controller.GetUser(w, r)
+	case method == "GET" && path == "/getallusers":
+		controller.GetAllUsers(w, r)
 	default:
 		controller.NotFound(w, r)
 	}

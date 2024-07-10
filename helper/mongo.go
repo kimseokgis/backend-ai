@@ -94,3 +94,28 @@ func FindUserByUsername(conn *mongo.Database, username string) (*model.User, err
     }
     return &user, nil
 }
+
+func FindAllUsers(conn *mongo.Database) ([]model.User, error) {
+    var users []model.User
+    collection := conn.Collection("users")
+    cursor, err := collection.Find(context.TODO(), bson.M{})
+    if err != nil {
+        return nil, err
+    }
+    defer cursor.Close(context.TODO())
+
+    for cursor.Next(context.TODO()) {
+        var user model.User
+        err := cursor.Decode(&user)
+        if err != nil {
+            return nil, err
+        }
+        users = append(users, user)
+    }
+
+    if err := cursor.Err(); err != nil {
+        return nil, err
+    }
+
+    return users, nil
+}
