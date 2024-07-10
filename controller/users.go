@@ -74,7 +74,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    err := helper.FindUserByUsername(conn, username)
+    user, err := helper.FindUserByUsername(conn, username)
     if err != nil {
         resp.Message = "Pengguna tidak ditemukan: " + err.Error()
         helper.WriteJSON(w, http.StatusNotFound, resp)
@@ -83,5 +83,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
     resp.Status = true
     resp.Message = "Pengguna ditemukan"
+    resp.Data = user // Asumsi model.Credential memiliki field Data untuk menyimpan informasi user
     helper.WriteJSON(w, http.StatusOK, resp)
 }
