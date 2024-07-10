@@ -60,3 +60,28 @@ func LoginUsers(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func GetUser(w http.ResponseWriter, r *http.Request) {
+    resp := new(model.Credential)
+    resp.Status = false
+    conn := helper.SetConnection()
+    defer conn.Client().Disconnect(context.TODO())
+
+    username := r.URL.Query().Get("username")
+    if username == "" {
+        resp.Message = "Username tidak boleh kosong"
+        helper.WriteJSON(w, http.StatusBadRequest, resp)
+        return
+    }
+
+    err := helper.FindUserByUsername(conn, username)
+    if err != nil {
+        resp.Message = "Pengguna tidak ditemukan: " + err.Error()
+        helper.WriteJSON(w, http.StatusNotFound, resp)
+        return
+    }
+
+    resp.Status = true
+    resp.Message = "Pengguna ditemukan"
+    helper.WriteJSON(w, http.StatusOK, resp)
+}
