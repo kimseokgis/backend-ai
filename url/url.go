@@ -18,6 +18,8 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		controller.RegisterUsers(w, r)
 	case method == "POST" && path == "/login":
 		controller.LoginUsers(w, r)
+	case method == "POST" && path == "/chat":
+		controller.ChatPredictions(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
