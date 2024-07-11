@@ -3,6 +3,7 @@ package helper
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 
@@ -77,4 +78,44 @@ func IsPasswordValid(mongoconn *mongo.Database, userdata model.User) bool {
 		return CheckPasswordHash(userdata.PasswordHash, res.PasswordHash)
 	}
 	return false
+}
+
+// Get User
+func FindUserByUsername(conn *mongo.Database, username string) (*model.User, error) {
+	var user model.User
+	collection := conn.Collection("users")
+	filter := bson.M{"username": username}
+	err := collection.FindOne(context.TODO(), filter).Decode(&user)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return nil, errors.New("pengguna tidak ditemukan")
+		}
+		return nil, err
+	}
+	return &user, nil
+}
+
+func FindAllUsers(conn *mongo.Database) ([]model.User, error) {
+	var users []model.User
+	collection := conn.Collection("users")
+	cursor, err := collection.Find(context.TODO(), bson.M{})
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.TODO())
+
+	for cursor.Next(context.TODO()) {
+		var user model.User
+		err := cursor.Decode(&user)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	if err := cursor.Err(); err != nil {
+		return nil, err
+	}
+
+	return users, nil
 }

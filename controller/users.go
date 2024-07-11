@@ -60,3 +60,48 @@ func LoginUsers(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func GetUser(w http.ResponseWriter, r *http.Request) {
+	resp := make(map[string]interface{})
+	resp["status"] = false
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
+
+	username := r.URL.Query().Get("username")
+	if username == "" {
+		resp["message"] = "Username tidak boleh kosong"
+		helper.WriteJSON(w, http.StatusBadRequest, resp)
+		return
+	}
+
+	user, err := helper.FindUserByUsername(conn, username)
+	if err != nil {
+		resp["message"] = "Pengguna tidak ditemukan: " + err.Error()
+		helper.WriteJSON(w, http.StatusNotFound, resp)
+		return
+	}
+
+	resp["status"] = true
+	resp["message"] = "Pengguna ditemukan"
+	resp["user"] = user
+	helper.WriteJSON(w, http.StatusOK, resp)
+}
+
+func GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	resp := make(map[string]interface{})
+	resp["status"] = false
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
+
+	users, err := helper.FindAllUsers(conn)
+	if err != nil {
+		resp["message"] = "Gagal mengambil data pengguna: " + err.Error()
+		helper.WriteJSON(w, http.StatusInternalServerError, resp)
+		return
+	}
+
+	resp["status"] = true
+	resp["message"] = "Berhasil mengambil data semua pengguna"
+	resp["users"] = users
+	helper.WriteJSON(w, http.StatusOK, resp)
+}

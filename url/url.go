@@ -20,6 +20,10 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		controller.LoginUsers(w, r)
 	case method == "POST" && path == "/chat":
 		controller.ChatPredictions(w, r)
+	case method == "GET" && path == "/getuser":
+		controller.GetUser(w, r)
+	case method == "GET" && path == "/getallusers":
+		controller.GetAllUsers(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
