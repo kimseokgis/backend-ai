@@ -1,13 +1,38 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/kimseokgis/backend-ai/url"
+	"log"
+	"net/http"
+	"time"
 )
 
-func main() {
-	http.HandleFunc("/", url.Web)
+// Define the logging middleware
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		log.Printf("Started %s %s", r.Method, r.URL.Path)
 
-	http.ListenAndServe(":8080", nil)
+		next.ServeHTTP(w, r)
+
+		log.Printf("Completed %s in %v", r.URL.Path, time.Since(start))
+	})
+}
+
+func main() {
+	// Create a new ServeMux
+	mux := http.NewServeMux()
+
+	// Register your handler
+	mux.HandleFunc("/", url.Web)
+
+	// Wrap the mux with the logging middleware
+	loggedMux := loggingMiddleware(mux)
+
+	// Start the server
+	log.Println("Starting server on :8080")
+	err := http.ListenAndServe(":8080", loggedMux)
+	if err != nil {
+		log.Fatalf("Server failed to start: %v", err)
+	}
 }
