@@ -35,3 +35,11 @@ func EncodeWithUsername(username, privatekey string) (string, error) {
 	key, err := paseto.NewV4AsymmetricSecretKeyFromHex(privatekey)
 	return token.V4Sign(key, nil), err
 }
+
+func DecodeGetUser(PublicKey, tokenStr string) (pay string, err error) {
+	key, err := Decoder(PublicKey, tokenStr)
+	if err != nil {
+		fmt.Println("Cannot decode the token", err.Error())
+	}
+	return key.User, nil
+}
