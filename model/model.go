@@ -42,3 +42,7 @@ type Datasets struct {
 	Question string             `json:"question" bson:"question"`
 	Answer   string             `json:"answer" bson:"answer"`
 }
+
+type Requests struct {
+	Messages string `json:"messages" bson:"messages"`
+}
