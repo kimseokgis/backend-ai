@@ -22,6 +22,8 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		controller.GetUser(w, r)
 	case method == "GET" && path == "/getallusers":
 		controller.GetAllUsers(w, r)
+	case method == "POST" && path == "/chatRegexp":
+		controller.ChatPredictUsingRegexp(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
