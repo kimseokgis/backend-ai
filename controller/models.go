@@ -2,7 +2,6 @@ package controller
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/kimseokgis/backend-ai/config"
 	"github.com/kimseokgis/backend-ai/helper"
@@ -12,7 +11,6 @@ import (
 
 func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	resp := new(model.Credential)
-	req := new(model.Requests)
 	chat := new(model.Chats)
 	token := r.Header.Get("login")
 	if token == "" {
@@ -21,41 +19,40 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		helper.WriteJSON(w, http.StatusNotAcceptable, resp)
 		return
 	}
-	err := json.NewDecoder(r.Body).Decode(&req)
-	if err != nil {
-		resp.Message = "error parsing application/json: " + err.Error()
-		helper.WriteJSON(w, http.StatusNotAcceptable, resp)
+	keys, ok := r.URL.Query()["key"]
+	if !ok || len(keys[0]) < 1 {
+		http.Error(w, "Missing key parameter", http.StatusBadRequest)
 		return
-	} else {
-		decoder, err := helper.Decoder(config.PublicKey, token)
-		if err != nil {
-			resp.Message = err.Error()
-			resp.Status = false
-			helper.WriteJSON(w, http.StatusBadRequest, resp)
-			return
-		}
-		db := helper.SetConnection()
-		fmt.Println(decoder.User)
-		_, err = helper.FindUserByUsername(db, decoder.User)
-		if err != nil {
-			resp.Message = fmt.Sprintf("Data tidak ditemukan : %s\n"+
-				"Username: %s\n", err.Error(), decoder.User)
-			resp.Status = false
-			helper.WriteJSON(w, http.StatusNotFound, resp)
-			return
-		}
-
-		reply, err := helper.QueriesDataRegexp(db, context.TODO(), req.Messages)
-		if err != nil {
-			resp.Message = fmt.Sprintf("error get Replies: %s\n", err.Error())
-			resp.Status = false
-			helper.WriteJSON(w, http.StatusNotFound, resp)
-			return
-		}
-		chat.IdChats = reply.ID.Hex()
-		chat.Message = reply.Question
-		chat.Responses = reply.Answer
 	}
+	key := keys[0]
+	decoder, err := helper.DecodeGetUser(config.PublicKey, token)
+	if err != nil {
+		resp.Message = err.Error()
+		resp.Status = false
+		helper.WriteJSON(w, http.StatusBadRequest, resp)
+		return
+	}
+	db := helper.SetConnection()
+	fmt.Println(decoder)
+	_, err = helper.FindUserByUsername(db, decoder)
+	if err != nil {
+		resp.Message = fmt.Sprintf("Data tidak ditemukan : %s\n"+
+			"Username: %s\n", err.Error(), decoder)
+		resp.Status = false
+		helper.WriteJSON(w, http.StatusNotFound, resp)
+		return
+	}
+	fmt.Printf("%+v\n", key)
+	reply, err := helper.QueriesDataRegexp(db, context.TODO(), key)
+	if err != nil {
+		resp.Message = fmt.Sprintf("error get Replies: %s\n", err.Error())
+		resp.Status = false
+		helper.WriteJSON(w, http.StatusNotFound, resp)
+		return
+	}
+	chat.IdChats = reply.ID.Hex()
+	chat.Message = reply.Question
+	chat.Responses = reply.Answer
 	helper.WriteJSON(w, http.StatusOK, chat)
 	return
 }
