@@ -6,7 +6,6 @@ import (
 	"github.com/kimseokgis/backend-ai/config"
 	"github.com/kimseokgis/backend-ai/helper"
 	"github.com/kimseokgis/backend-ai/model"
-	"github.com/whatsauth/watoken"
 	"net/http"
 )
 
@@ -45,7 +44,7 @@ func LoginUsers(w http.ResponseWriter, r *http.Request) {
 	} else {
 		if helper.IsPasswordValid(conn, userdata) {
 			resp.Status = true
-			tokenstring, err := watoken.Encode(userdata.Username, config.PrivateKey)
+			tokenstring, err := helper.EncodeWithUsername(userdata.Username, config.PrivateKey)
 			if err != nil {
 				resp.Message = "Gagal Encode Token : " + err.Error()
 				helper.WriteJSON(w, http.StatusBadRequest, resp)
