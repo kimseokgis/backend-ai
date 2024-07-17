@@ -14,7 +14,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	resp := new(model.Credential)
 	req := new(model.Requests)
 	chat := new(model.Chats)
-	token := w.Header().Get("login")
+	token := r.Header.Get("login")
 	if token == "" {
 		resp.Message = "token is empty"
 		resp.Status = false
