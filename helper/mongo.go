@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"os"
 
 	"github.com/kimseokgis/backend-ai/model"
@@ -106,4 +107,19 @@ func FindAllUsers(conn *mongo.Database) ([]model.User, error) {
 	}
 
 	return users, nil
+}
+
+func QueriesDataRegexp(db *mongo.Database, ctx context.Context, queries string) (dest []model.Datasets, err error) {
+	filter := bson.M{"questions": primitive.Regex{Pattern: queries, Options: "i"}}
+	cursor, err := db.Collection("wage").Find(ctx, filter)
+	if err != nil {
+		return dest, err
+	}
+	defer cursor.Close(ctx)
+
+	if err = cursor.All(ctx, &dest); err != nil {
+		return dest, err
+	}
+
+	return dest, err
 }
