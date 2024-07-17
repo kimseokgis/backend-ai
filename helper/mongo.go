@@ -111,7 +111,7 @@ func FindAllUsers(conn *mongo.Database) ([]model.User, error) {
 
 func QueriesDataRegexp(db *mongo.Database, ctx context.Context, queries string) (dest model.Datasets, err error) {
 	filter := bson.M{"questions": primitive.Regex{Pattern: queries, Options: "i"}}
-	err = db.Collection("dataset").FindOne(ctx, filter).Decode(&dest)
+	err = db.Collection("datasets").FindOne(ctx, filter).Decode(&dest)
 
 	if err != nil && err != mongo.ErrNoDocuments {
 		return dest, err
