@@ -35,9 +35,11 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		db := helper.SetConnection()
+		fmt.Println(decoder.User)
 		_, err = helper.FindUserByUsername(db, decoder.User)
 		if err != nil {
-			resp.Message = fmt.Sprintf("Data tidak ditemukan : %s\n", err.Error())
+			resp.Message = fmt.Sprintf("Data tidak ditemukan : %s\n"+
+				"Username: %s\n", err.Error(), decoder.User)
 			resp.Status = false
 			helper.WriteJSON(w, http.StatusNotFound, resp)
 			return
