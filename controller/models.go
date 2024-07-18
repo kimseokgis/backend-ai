@@ -26,6 +26,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	key := keys[0]
+	fmt.Println(key)
 	decoder, err := helper.DecodeGetUser(config.PublicKey, token)
 	if err != nil {
 		resp.Message = err.Error()
@@ -47,14 +48,14 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	if strings.Contains(key, " ") {
 		keysSlices := strings.Split(key, " ")
 		key = keysSlices[0]
-		if len(keysSlices) > 5 {
-			key = keysSlices[1] + keysSlices[2]
+		if len(keysSlices) >= 2 {
+			key = keysSlices[0] + " " + keysSlices[1]
 		}
 	}
 	fmt.Printf("%+v\n", key)
 	reply, err := helper.QueriesDataRegexp(db, context.TODO(), key)
 	if err != nil {
-		resp.Message = fmt.Sprintf("error get Replies: %s\n", err.Error())
+		resp.Message = "Aduh aduh aduhhhaiii, aku ga ngerti nihh coba nanya yang lain dongg biar aku ngertiin kamu..."
 		resp.Status = false
 		helper.WriteJSON(w, http.StatusNotFound, resp)
 		return
