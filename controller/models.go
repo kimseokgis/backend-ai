@@ -7,6 +7,7 @@ import (
 	"github.com/kimseokgis/backend-ai/helper"
 	"github.com/kimseokgis/backend-ai/model"
 	"net/http"
+	"strings"
 )
 
 func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
@@ -34,6 +35,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	}
 	db := helper.SetConnection()
 	fmt.Println(decoder)
+
 	_, err = helper.FindUserByUsername(db, decoder)
 	if err != nil {
 		resp.Message = fmt.Sprintf("Data tidak ditemukan : %s\n"+
@@ -41,6 +43,10 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		resp.Status = false
 		helper.WriteJSON(w, http.StatusNotFound, resp)
 		return
+	}
+	if strings.Contains(key, " ") {
+		keysSlices := strings.Split(key, " ")
+		key = keysSlices[0]
 	}
 	fmt.Printf("%+v\n", key)
 	reply, err := helper.QueriesDataRegexp(db, context.TODO(), key)
@@ -53,6 +59,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	chat.IdChats = reply.ID.Hex()
 	chat.Message = reply.Question
 	chat.Responses = reply.Answer
+	defer db.Client().Disconnect(context.Background())
 	helper.WriteJSON(w, http.StatusOK, chat)
 	return
 }
