@@ -47,6 +47,9 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	if strings.Contains(key, " ") {
 		keysSlices := strings.Split(key, " ")
 		key = keysSlices[0]
+		if len(keysSlices) > 5 {
+			key = keysSlices[1] + keysSlices[2]
+		}
 	}
 	fmt.Printf("%+v\n", key)
 	reply, err := helper.QueriesDataRegexp(db, context.TODO(), key)
