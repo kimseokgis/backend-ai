@@ -16,6 +16,7 @@ require (
 
 require (
 	aidanwoods.dev/go-result v0.1.0 // indirect
+	github.com/RadhiFadlillah/go-sastrawi v0.0.0-20200621225627-3dd6e0e1ac00 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/apache/arrow/go/arrow v0.0.0-20211112161151-bc219186db40 // indirect
 	github.com/awalterschulze/gographviz v2.0.3+incompatible // indirect
