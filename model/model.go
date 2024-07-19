@@ -47,3 +47,7 @@ type Datasets struct {
 type Requests struct {
 	Messages string `json:"messages" bson:"messages"`
 }
+
+type Secrets struct {
+	SecretToken string `json:"secret_token" bson:"secret_token"`
+}
