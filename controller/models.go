@@ -46,11 +46,15 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if strings.Contains(key, "_") {
-		cihuy := strings.Replace(key, "_", " ", 5)
+		cihuy := strings.Replace(key, "_", " ", 10)
+		key = cihuy
 		keysSlices := strings.Split(cihuy, " ")
-		key = keysSlices[0]
-		if len(keysSlices) >= 2 {
-			key = keysSlices[0] + " " + keysSlices[1]
+		if len(keysSlices) >= 5 {
+			key = keysSlices[len(keysSlices)-4] + " " + keysSlices[len(keysSlices)-3] + " " + keysSlices[len(keysSlices)-2] + " " + keysSlices[len(keysSlices)-1]
+		} else if len(keysSlices) >= 3 {
+			key = keysSlices[len(keysSlices)-2] + " " + keysSlices[len(keysSlices)-1]
+		} else if len(keysSlices) >= 2 {
+			key = keysSlices[len(keysSlices)-1]
 		}
 	}
 	fmt.Printf("%+v\n", key)
