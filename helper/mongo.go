@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/aiteung/atdb"
@@ -122,9 +123,7 @@ func QueriesDataRegexp(db *mongo.Database, ctx context.Context, queries string) 
 }
 
 func QueriesDataRegexpALL(db *mongo.Database, ctx context.Context, queries string) (dest model.Datasets, score float64, err error) {
-	if strings.Contains(queries, "mu") {
-
-	}
+	queries = SeparateSuffixMu(queries)
 	var cursor *mongo.Cursor
 	queries = Stemmer(queries)
 	splits := strings.Split(queries, " ")
@@ -219,4 +218,19 @@ func Stemmer(Sentences string) (newString string) {
 		fmt.Println(newString)
 	}
 	return strings.TrimSpace(newString)
+}
+
+// Fungsi untuk memisahkan kata dengan imbuhan "mu" di akhir
+func SeparateSuffixMu(word string) string {
+	// Regex untuk mendeteksi kata dengan imbuhan "mu" di akhir
+	re := regexp.MustCompile(`(\w+)(mu)$`)
+
+	// Cek apakah kata cocok dengan regex
+	if re.MatchString(word) {
+		// Ganti "mu" dengan " kamu"
+		return re.ReplaceAllString(word, "$1 kamu")
+	}
+
+	// Jika tidak ada imbuhan "mu", kembalikan kata asli
+	return word
 }
