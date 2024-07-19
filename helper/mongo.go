@@ -122,6 +122,17 @@ func QueriesDataRegexp(db *mongo.Database, ctx context.Context, queries string) 
 	return dest, err
 }
 
+func QueriesSecret(db *mongo.Database, ctx context.Context, secret string) (dest model.Secrets, err error) {
+	filter := bson.M{"secret_token": primitive.Regex{Pattern: secret, Options: "i"}}
+	err = db.Collection("Secret").FindOne(ctx, filter).Decode(&dest)
+
+	if err != nil && err != mongo.ErrNoDocuments {
+		return dest, err
+	}
+
+	return dest, err
+}
+
 func QueriesDataRegexpALL(db *mongo.Database, ctx context.Context, queries string) (dest model.Datasets, score float64, err error) {
 	queries = SeparateSuffixMu(queries)
 	var cursor *mongo.Cursor
