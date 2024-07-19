@@ -4,10 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/RadhiFadlillah/go-sastrawi"
 	"github.com/kimseokgis/backend-ai/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
+	"os"
 	"strings"
 
 	"github.com/aiteung/atdb"
@@ -17,7 +19,7 @@ import (
 
 func SetConnection() *mongo.Database {
 	var DBmongoinfo = atdb.DBInfo{
-		DBString: "mongodb+srv://dbwbadmn:TaSrXMkUMIDTyzZb@dbws.hsllsnm.mongodb.net/",
+		DBString: os.Getenv("MONGOSTRING"),
 		DBName:   "AI",
 	}
 	return atdb.MongoConnect(DBmongoinfo)
@@ -120,7 +122,11 @@ func QueriesDataRegexp(db *mongo.Database, ctx context.Context, queries string) 
 }
 
 func QueriesDataRegexpALL(db *mongo.Database, ctx context.Context, queries string) (dest model.Datasets, score float64, err error) {
+	if strings.Contains(queries, "mu") {
+
+	}
 	var cursor *mongo.Cursor
+	queries = Stemmer(queries)
 	splits := strings.Split(queries, " ")
 	if len(splits) >= 5 {
 		queries = splits[len(splits)-3] + " " + splits[len(splits)-2] + " " + splits[len(splits)-1]
@@ -202,4 +208,15 @@ func QueriesALL(db *mongo.Database, ctx context.Context) (dest []model.Datasets,
 	}
 
 	return dest, err
+}
+
+func Stemmer(Sentences string) (newString string) {
+	dictionary := sastrawi.DefaultDictionary()
+	stemmer := sastrawi.NewStemmer(dictionary)
+	for _, word := range sastrawi.Tokenize(Sentences) {
+		//fmt.Println(word)
+		newString = newString + " " + stemmer.Stem(word)
+		fmt.Println(newString)
+	}
+	return strings.TrimSpace(newString)
 }
