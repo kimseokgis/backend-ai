@@ -187,7 +187,7 @@ func QueriesDataRegexpALL(db *mongo.Database, ctx context.Context, queries strin
 		if err != nil {
 			return data, score, err
 		}
-		fmt.Println(data)
+		//fmt.Println(data)
 		str2 := data.Question
 		scorex := jaroWinkler(queries, str2)
 		if score < scorex {
@@ -226,7 +226,7 @@ func Stemmer(Sentences string) (newString string) {
 	for _, word := range sastrawi.Tokenize(Sentences) {
 		//fmt.Println(word)
 		newString = newString + " " + stemmer.Stem(word)
-		fmt.Println(newString)
+		//fmt.Println(newString)
 	}
 	return strings.TrimSpace(newString)
 }
