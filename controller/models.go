@@ -45,8 +45,9 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		helper.WriteJSON(w, http.StatusNotFound, resp)
 		return
 	}
-	if strings.Contains(key, " ") {
-		keysSlices := strings.Split(key, " ")
+	if strings.Contains(key, "_") {
+		cihuy := strings.Replace(key, "_", " ", 5)
+		keysSlices := strings.Split(cihuy, " ")
 		key = keysSlices[0]
 		if len(keysSlices) >= 2 {
 			key = keysSlices[0] + " " + keysSlices[1]
@@ -57,6 +58,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		resp.Message = "Aduh aduh aduhhhaiii, aku ga ngerti nihh coba nanya yang lain dongg biar aku ngertiin kamu..."
 		resp.Status = false
+		chat.Responses = resp.Message
 		helper.WriteJSON(w, http.StatusNotFound, resp)
 		return
 	}
