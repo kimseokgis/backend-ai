@@ -46,19 +46,10 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if strings.Contains(key, "_") {
-		cihuy := strings.Replace(key, "_", " ", 10)
-		key = cihuy
-		keysSlices := strings.Split(cihuy, " ")
-		if len(keysSlices) >= 5 {
-			key = keysSlices[len(keysSlices)-4] + " " + keysSlices[len(keysSlices)-3] + " " + keysSlices[len(keysSlices)-2] + " " + keysSlices[len(keysSlices)-1]
-		} else if len(keysSlices) >= 3 {
-			key = keysSlices[len(keysSlices)-2] + " " + keysSlices[len(keysSlices)-1]
-		} else if len(keysSlices) >= 2 {
-			key = keysSlices[len(keysSlices)-1]
-		}
+		key = strings.Replace(key, "_", " ", -1)
 	}
 	fmt.Printf("%+v\n", key)
-	reply, err := helper.QueriesDataRegexp(db, context.TODO(), key)
+	reply, score, err := helper.QueriesDataRegexpALL(db, context.TODO(), key)
 	if err != nil {
 		resp.Message = "Aduh aduh aduhhhaiii, aku ga ngerti nihh coba nanya yang lain dongg biar aku ngertiin kamu..."
 		resp.Status = false
@@ -69,6 +60,7 @@ func ChatPredictUsingRegexp(w http.ResponseWriter, r *http.Request) {
 	chat.IdChats = reply.ID.Hex()
 	chat.Message = reply.Question
 	chat.Responses = reply.Answer
+	chat.Score = score
 	defer db.Client().Disconnect(context.Background())
 	helper.WriteJSON(w, http.StatusOK, chat)
 	return
