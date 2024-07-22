@@ -11,9 +11,6 @@ import (
 var origins = []string{
 	"http://127.0.0.1:5500",
 	"http://127.0.0.1:5501",
-	"https://home.ulbi.ac.id",
-	"https://alpha.ulbi.ac.id",
-	"https://dias.ulbi.ac.id",
 	"https://iteung.ulbi.ac.id",
 	"https://whatsauth.github.io",
 	"https://rofinafiin.github.io",
