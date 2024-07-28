@@ -8,7 +8,6 @@ import (
 	"github.com/kimseokgis/backend-ai/config"
 	"github.com/kimseokgis/backend-ai/helper"
 	"github.com/kimseokgis/backend-ai/model"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func RegisterUsers(w http.ResponseWriter, r *http.Request) {
@@ -63,62 +62,107 @@ func LoginUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	// Mengubah penamaan variabel menjadi lebih deskriptif dan konsisten
-	response := make(map[string]interface{})
-	response["status"] = false
+	resp := make(map[string]interface{})
+	resp["status"] = false
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
 
-	// Membuat koneksi dan memastikan koneksi ditutup setelah fungsi selesai
-	connection := helper.SetConnection()
-	defer connection.Client().Disconnect(context.TODO())
-
-	// Mengambil parameter username dari URL query
 	username := r.URL.Query().Get("username")
 	if username == "" {
-		response["message"] = "Username tidak boleh kosong"
-		helper.WriteJSON(w, http.StatusBadRequest, response)
+		resp["message"] = "Username tidak boleh kosong"
+		helper.WriteJSON(w, http.StatusBadRequest, resp)
 		return
 	}
 
-	// Mencari pengguna berdasarkan username
-	user, err := helper.FindUserByUsername(connection, username)
+	user, err := helper.FindUserByUsername(conn, username)
 	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			response["message"] = "Pengguna tidak ditemukan"
-			helper.WriteJSON(w, http.StatusNotFound, response)
-		} else {
-			response["message"] = "Terjadi kesalahan saat mencari pengguna: " + err.Error()
-			helper.WriteJSON(w, http.StatusInternalServerError, response)
-		}
+		resp["message"] = "Pengguna tidak ditemukan: " + err.Error()
+		helper.WriteJSON(w, http.StatusNotFound, resp)
 		return
 	}
 
-	// Mengatur respons ketika pengguna ditemukan
-	response["status"] = true
-	response["message"] = "Pengguna ditemukan"
-	response["user"] = user
-	helper.WriteJSON(w, http.StatusOK, response)
+	resp["status"] = true
+	resp["message"] = "Pengguna ditemukan"
+	resp["user"] = user
+	helper.WriteJSON(w, http.StatusOK, resp)
 }
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	// Mengubah penamaan variabel menjadi lebih deskriptif dan konsisten
-	response := make(map[string]interface{})
-	response["status"] = false
+	resp := make(map[string]interface{})
+	resp["status"] = false
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
 
-	// Membuat koneksi dan memastikan koneksi ditutup setelah fungsi selesai
-	connection := helper.SetConnection()
-	defer connection.Client().Disconnect(context.TODO())
-
-	// Mencari semua pengguna
-	users, err := helper.FindAllUsers(connection)
+	users, err := helper.FindAllUsers(conn)
 	if err != nil {
-		response["message"] = "Gagal mengambil data pengguna: " + err.Error()
-		helper.WriteJSON(w, http.StatusInternalServerError, response)
+		resp["message"] = "Gagal mengambil data pengguna: " + err.Error()
+		helper.WriteJSON(w, http.StatusInternalServerError, resp)
 		return
 	}
 
-	// Mengatur respons ketika pengguna ditemukan
-	response["status"] = true
-	response["message"] = "Berhasil mengambil data semua pengguna"
-	response["users"] = users
-	helper.WriteJSON(w, http.StatusOK, response)
+	resp["status"] = true
+	resp["message"] = "Berhasil mengambil data semua pengguna"
+	resp["users"] = users
+	helper.WriteJSON(w, http.StatusOK, resp)
 }
+
+// func GetUser(w http.ResponseWriter, r *http.Request) {
+// 	// Mengubah penamaan variabel menjadi lebih deskriptif dan konsisten
+// 	response := make(map[string]interface{})
+// 	response["status"] = false
+
+// 	// Membuat koneksi dan memastikan koneksi ditutup setelah fungsi selesai
+// 	connection := helper.SetConnection()
+// 	defer connection.Client().Disconnect(context.TODO())
+
+// 	// Mengambil parameter username dari URL query
+// 	username := r.URL.Query().Get("username")
+// 	if username == "" {
+// 		response["message"] = "Username tidak boleh kosong"
+// 		helper.WriteJSON(w, http.StatusBadRequest, response)
+// 		return
+// 	}
+
+// 	// Mencari pengguna berdasarkan username
+// 	user, err := helper.FindUserByUsername(connection, username)
+// 	if err != nil {
+// 		if err == mongo.ErrNoDocuments {
+// 			response["message"] = "Pengguna tidak ditemukan"
+// 			helper.WriteJSON(w, http.StatusNotFound, response)
+// 		} else {
+// 			response["message"] = "Terjadi kesalahan saat mencari pengguna: " + err.Error()
+// 			helper.WriteJSON(w, http.StatusInternalServerError, response)
+// 		}
+// 		return
+// 	}
+
+// 	// Mengatur respons ketika pengguna ditemukan
+// 	response["status"] = true
+// 	response["message"] = "Pengguna ditemukan"
+// 	response["user"] = user
+// 	helper.WriteJSON(w, http.StatusOK, response)
+// }
+
+// func GetAllUsers(w http.ResponseWriter, r *http.Request) {
+// 	// Mengubah penamaan variabel menjadi lebih deskriptif dan konsisten
+// 	response := make(map[string]interface{})
+// 	response["status"] = false
+
+// 	// Membuat koneksi dan memastikan koneksi ditutup setelah fungsi selesai
+// 	connection := helper.SetConnection()
+// 	defer connection.Client().Disconnect(context.TODO())
+
+// 	// Mencari semua pengguna
+// 	users, err := helper.FindAllUsers(connection)
+// 	if err != nil {
+// 		response["message"] = "Gagal mengambil data pengguna: " + err.Error()
+// 		helper.WriteJSON(w, http.StatusInternalServerError, response)
+// 		return
+// 	}
+
+// 	// Mengatur respons ketika pengguna ditemukan
+// 	response["status"] = true
+// 	response["message"] = "Berhasil mengambil data semua pengguna"
+// 	response["users"] = users
+// 	helper.WriteJSON(w, http.StatusOK, response)
+// }
