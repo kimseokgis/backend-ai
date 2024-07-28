@@ -69,10 +69,11 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	connection := helper.SetConnection()
 	defer connection.Client().Disconnect(context.TODO())
 
+	// Mengambil parameter username dari URL query
 	username := r.URL.Query().Get("username")
 	if username == "" {
-		resp["message"] = "Username tidak boleh kosong"
-		helper.WriteJSON(w, http.StatusBadRequest, resp)
+		response["message"] = "Username tidak boleh kosong"
+		helper.WriteJSON(w, http.StatusBadRequest, response)
 		return
 	}
 
