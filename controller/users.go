@@ -90,10 +90,11 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp["status"] = true
-	resp["message"] = "Pengguna ditemukan"
-	resp["user"] = user
-	helper.WriteJSON(w, http.StatusOK, resp)
+	// Mengatur respons ketika pengguna ditemukan
+	response["status"] = true
+	response["message"] = "Pengguna ditemukan"
+	response["user"] = user
+	helper.WriteJSON(w, http.StatusOK, response)
 }
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
