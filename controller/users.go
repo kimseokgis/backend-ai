@@ -65,8 +65,9 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	response := make(map[string]interface{})
 	response["status"] = false
 
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
+	// Membuat koneksi dan memastikan koneksi ditutup setelah fungsi selesai
+	connection := helper.SetConnection()
+	defer connection.Client().Disconnect(context.TODO())
 
 	username := r.URL.Query().Get("username")
 	if username == "" {
