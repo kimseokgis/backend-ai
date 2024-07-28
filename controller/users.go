@@ -108,10 +108,11 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	connection := helper.SetConnection()
 	defer connection.Client().Disconnect(context.TODO())
 
-	users, err := helper.FindAllUsers(conn)
+	// Mencari semua pengguna
+	users, err := helper.FindAllUsers(connection)
 	if err != nil {
-		resp["message"] = "Gagal mengambil data pengguna: " + err.Error()
-		helper.WriteJSON(w, http.StatusInternalServerError, resp)
+		response["message"] = "Gagal mengambil data pengguna: " + err.Error()
+		helper.WriteJSON(w, http.StatusInternalServerError, response)
 		return
 	}
 
