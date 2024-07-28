@@ -3,10 +3,12 @@ package controller
 import (
 	"context"
 	"encoding/json"
+	"net/http"
+
 	"github.com/kimseokgis/backend-ai/config"
 	"github.com/kimseokgis/backend-ai/helper"
 	"github.com/kimseokgis/backend-ai/model"
-	"net/http"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func RegisterUsers(w http.ResponseWriter, r *http.Request) {
@@ -98,8 +100,10 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllUsers(w http.ResponseWriter, r *http.Request) {
-	resp := make(map[string]interface{})
-	resp["status"] = false
+	// Mengubah penamaan variabel menjadi lebih deskriptif dan konsisten
+	response := make(map[string]interface{})
+	response["status"] = false
+	
 	conn := helper.SetConnection()
 	defer conn.Client().Disconnect(context.TODO())
 
