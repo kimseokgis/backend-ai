@@ -116,8 +116,9 @@ func GetAllUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp["status"] = true
-	resp["message"] = "Berhasil mengambil data semua pengguna"
-	resp["users"] = users
-	helper.WriteJSON(w, http.StatusOK, resp)
+	// Mengatur respons ketika pengguna ditemukan
+	response["status"] = true
+	response["message"] = "Berhasil mengambil data semua pengguna"
+	response["users"] = users
+	helper.WriteJSON(w, http.StatusOK, response)
 }
