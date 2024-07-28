@@ -77,10 +77,16 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := helper.FindUserByUsername(conn, username)
+	// Mencari pengguna berdasarkan username
+	user, err := helper.FindUserByUsername(connection, username)
 	if err != nil {
-		resp["message"] = "Pengguna tidak ditemukan: " + err.Error()
-		helper.WriteJSON(w, http.StatusNotFound, resp)
+		if err == mongo.ErrNoDocuments {
+			response["message"] = "Pengguna tidak ditemukan"
+			helper.WriteJSON(w, http.StatusNotFound, response)
+		} else {
+			response["message"] = "Terjadi kesalahan saat mencari pengguna: " + err.Error()
+			helper.WriteJSON(w, http.StatusInternalServerError, response)
+		}
 		return
 	}
 
