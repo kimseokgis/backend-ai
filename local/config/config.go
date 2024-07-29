@@ -27,7 +27,8 @@ var origins = []string{
 	"http://127.0.0.1:5501",
 }
 var CorsConfig = cors.Config{
-	AllowOrigins: strings.Join(origins, ","),
-	AllowMethods: "GET,HEAD,OPTIONS,POST,PUT",
-	AllowHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
+	AllowOrigins:  strings.Join(origins, ","),
+	AllowMethods:  "GET,HEAD,OPTIONS,POST,PUT",
+	AllowHeaders:  "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
+	ExposeHeaders: "Content-Length",
 }
