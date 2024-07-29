@@ -26,6 +26,8 @@ func Web(w http.ResponseWriter, r *http.Request) {
 		controller.ChatPredictForDomykado(w, r)
 	case method == "POST" && path == "/chatRegexp":
 		controller.ChatPredictUsingRegexp(w, r)
+	case method == "POST" && path == "/comment":
+		controller.Comment(w, r)
 	default:
 		controller.NotFound(w, r)
 	}
