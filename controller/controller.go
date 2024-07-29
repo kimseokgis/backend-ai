@@ -24,3 +24,7 @@ func NotFound(respw http.ResponseWriter, req *http.Request) {
 	resp.Message = "Not Found"
 	helper.WriteJSON(respw, http.StatusNotFound, resp)
 }
+
+func Comment(respw http.ResponseWriter, req *http.Request) {
+
+}
