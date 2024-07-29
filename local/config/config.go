@@ -28,4 +28,5 @@ var origins = []string{
 }
 var CorsConfig = cors.Config{
 	AllowOrigins: strings.Join(origins, ","),
+	AllowMethods: "GET,HEAD,OPTIONS,POST,PUT",
 }
