@@ -24,3 +24,6 @@ func InsertUser(db *mongo.Database, user model.User) interface{} {
 	}
 	return result.InsertedID
 }
+func ValidatePassword(conn *mongo.Database, user model.User) bool {
+
+}
