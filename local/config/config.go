@@ -35,10 +35,5 @@ var CorsConfig = cors.Config{
 }
 
 func IsAllowedOrigin(origin string) bool {
-	for _, o := range origins {
-		if o == origin {
-			return true
-		}
-	}
-	return false
+
 }
