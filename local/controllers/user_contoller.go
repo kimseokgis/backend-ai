@@ -14,16 +14,18 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return
-		conn := helper.SetConnection()
-		defer conn.Client().Disconnect(context.TODO())
-		hash, err := helper.HashPassword(user.Password)
-		if err != nil {
-			http.Error(w, "Error hashing password", http.StatusInternalServerError)
-			return
-		}
-		user.PasswordHash = hash
-		helper.InsertUser(conn, user)
-		response := map[string]string{"message": "User registered successfully"}
-		helper.WriteJSON(w, http.StatusOK, response)
 	}
+
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
+
+	hash, err := helper.HashPassword(user.Password)
+	if err != nil {
+		http.Error(w, "Error hashing password", http.StatusInternalServerError)
+		return
+	}
+	user.PasswordHash = hash
+	helper.InsertUser(conn, user)
+	response := map[string]string{"message": "User registered successfully"}
+	helper.WriteJSON(w, http.StatusOK, response)
 }
