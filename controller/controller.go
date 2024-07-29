@@ -26,5 +26,15 @@ func NotFound(respw http.ResponseWriter, req *http.Request) {
 }
 
 func Comment(respw http.ResponseWriter, req *http.Request) {
+	var resp model.Response
+	comment := new(model.Comment)
+	resp.Status = false
+	_ = helper.SetConnection()
+	err := json.NewDecoder(req.Body).Decode(comment)
+	if err != nil {
+		resp.Message = "error parsing application/json: " + err.Error()
+		helper.WriteJSON(respw, http.StatusNotAcceptable, resp)
+	}
 
+	return
 }
