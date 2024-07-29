@@ -6,4 +6,6 @@ var FiberConfig = fiber.Config{
 	Prefork:       true,
 	CaseSensitive: true,
 	StrictRouting: true,
+	ServerHeader:  "Makmur",
+	AppName:       "Makmur AI",
 }
