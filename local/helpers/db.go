@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"context"
 	"os"
 
 	"github.com/aiteung/atdb"
@@ -16,5 +17,10 @@ func SetConnection() *mongo.Database {
 	return atdb.MongoConnect(DBmongoinfo)
 }
 func InsertUser(db *mongo.Database, user model.User) interface{} {
-
+	collection := db.Collection("users")
+	result, err := collection.InsertOne(context.TODO(), user)
+	if err != nil {
+		return nil
+	}
+	return result.InsertedID
 }
