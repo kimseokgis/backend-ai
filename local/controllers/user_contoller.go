@@ -23,5 +23,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		}
 		user.PasswordHash = hash
 		helper.InsertUser(conn, user)
+		response := map[string]string{"message": "User registered successfully"}
+		helper.WriteJSON(w, http.StatusOK, response)
 	}
 }
