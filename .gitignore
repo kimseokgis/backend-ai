@@ -1,3 +1,4 @@
 *.txt
 *.env
 test.go
+*.h5
