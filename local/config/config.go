@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -25,4 +26,6 @@ var origins = []string{
 	"http://127.0.0.1:5500",
 	"http://127.0.0.1:5501",
 }
-var CorsConfig = cors.Config{}
+var CorsConfig = cors.Config{
+	AllowOrigins: strings.Join(origins, ","),
+}
