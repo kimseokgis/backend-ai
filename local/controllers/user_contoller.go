@@ -21,5 +21,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Error hashing password", http.StatusInternalServerError)
 			return
 		}
+		user.PasswordHash = hash
+		helper.InsertUser(conn, user)
 	}
 }
