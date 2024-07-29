@@ -51,3 +51,8 @@ type Requests struct {
 type Secrets struct {
 	SecretToken string `json:"secret_token" bson:"secret_token"`
 }
+
+type Comment struct {
+	CommenterName string `json:"commenter_name" bson:"commenter_name"`
+	CommentValue  string `json:"comment_value" bson:"comment_value"`
+}
