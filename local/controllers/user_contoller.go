@@ -16,5 +16,6 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 		conn := helper.SetConnection()
 		defer conn.Client().Disconnect(context.TODO())
+		hash, err := helper.HashPassword(user.Password)
 	}
 }
