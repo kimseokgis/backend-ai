@@ -33,3 +33,12 @@ var CorsConfig = cors.Config{
 	ExposeHeaders:    "Content-Length",
 	AllowCredentials: true,
 }
+
+func IsAllowedOrigin(origin string) bool {
+	for _, o := range origins {
+		if o == origin {
+			return true
+		}
+	}
+	return false
+}
