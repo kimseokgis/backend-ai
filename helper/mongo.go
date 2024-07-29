@@ -35,6 +35,11 @@ func InsertUserdata(MongoConn *mongo.Database, username, email, password, passwo
 	return InsertOneDoc(MongoConn, "users", req)
 }
 
+func InsertComment(conn *mongo.Database, comment model.Comment) (InsertedID interface{}) {
+	ins := InsertOneDoc(conn, "comments", comment)
+	return ins
+}
+
 func InsertOneDoc(db *mongo.Database, collection string, doc interface{}) (insertedID interface{}) {
 	insertResult, err := db.Collection(collection).InsertOne(context.TODO(), doc)
 	if err != nil {
