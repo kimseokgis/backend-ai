@@ -19,3 +19,10 @@ func createHomeResponse() map[string]string {
 func writeJSONResponse(w http.ResponseWriter, statusCode int, data interface{}) {
 	helper.WriteJSON(w, statusCode, data)
 }
+
+// Home handles the home route.
+// Creates a response with a welcome message and writes it as JSON.
+func Home(w http.ResponseWriter, r *http.Request) {
+	response := createHomeResponse()
+	writeJSONResponse(w, http.StatusOK, response)
+}
