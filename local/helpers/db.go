@@ -15,10 +15,7 @@ import (
 
 
 // connectToMongoDB establishes a connection to MongoDB.
-// Takes the database info and returns the database connection.
-func connectToMongoDB(dbInfo atdb.DBInfo) *mongo.Database {
-	return atdb.MongoConnect(dbInfo)
-}
+
 
 // insertUserToDB inserts a user into the specified MongoDB collection.
 // Returns the inserted ID or an error if insertion fails.
