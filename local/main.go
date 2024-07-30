@@ -19,5 +19,11 @@ func main() {
 	// Logger middleware logs HTTP requests
 	app.Use(logger.New())
 
+	// Routes
+	// Root route to check if the server is running
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Welcome to Makmur AI!")
+	})
+
 
 }
