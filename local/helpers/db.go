@@ -36,6 +36,18 @@ func insertUserToDB(collection *mongo.Collection, user model.User) (interface{},
 	return result.InsertedID, nil
 }
 
+// findUserInDB finds a user in the specified MongoDB collection by username.
+// Returns the user model or an error if retrieval fails.
+func findUserInDB(collection *mongo.Collection, username string) (*model.User, error) {
+	filter := bson.M{"username": username}
+	var storedUser model.User
+	err := collection.FindOne(context.TODO(), filter).Decode(&storedUser)
+	if err != nil {
+		return nil, err
+	}
+	return &storedUser, nil
+}
+
 
 
 
