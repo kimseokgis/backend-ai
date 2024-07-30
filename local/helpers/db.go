@@ -18,14 +18,7 @@ import (
 
 
 // insertUserToDB inserts a user into the specified MongoDB collection.
-// Returns the inserted ID or an error if insertion fails.
-func insertUserToDB(collection *mongo.Collection, user model.User) (interface{}, error) {
-	result, err := collection.InsertOne(context.TODO(), user)
-	if err != nil {
-		return nil, err
-	}
-	return result.InsertedID, nil
-}
+
 
 // findUserInDB finds a user in the specified MongoDB collection by username.
 // Returns the user model or an error if retrieval fails.
