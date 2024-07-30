@@ -25,5 +25,9 @@ func main() {
 		return c.SendString("Welcome to Makmur AI!")
 	})
 
+	// Route for user registration
+	app.Post("/register", controllers.RegisterUser)
+
+
 
 }
