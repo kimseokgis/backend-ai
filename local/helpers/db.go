@@ -12,13 +12,7 @@ import (
 )
 
 // getDBInfo constructs the database info from environment variables.
-// Returns the database information.
-func getDBInfo() atdb.DBInfo {
-	return atdb.DBInfo{
-		DBString: os.Getenv("MONGOSTRING"),
-		DBName:   "AI",
-	}
-}
+
 
 // connectToMongoDB establishes a connection to MongoDB.
 // Takes the database info and returns the database connection.
