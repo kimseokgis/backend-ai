@@ -13,14 +13,7 @@ import (
 )
 
 // parseUser parses the request body into a User model.
-// Returns the User model or an error if parsing fails.
-func parseUser(c *fiber.Ctx) (*model.User, error) {
-	var user model.User
-	if err := c.BodyParser(&user); err != nil {
-		return nil, err
-	}
-	return &user, nil
-}
+
 
 // hashPassword hashes the given password.
 // Returns the hashed password or an error if hashing fails.
