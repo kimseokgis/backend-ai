@@ -56,15 +56,6 @@ func IsAllowedOrigin(origin string) bool {
 	return false
 }
 
-
-var CorsConfig = cors.Config{
-	AllowOrigins:     strings.Join(origins, ","),
-	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
-	AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
-	ExposeHeaders:    "Content-Length",
-	AllowCredentials: true,
-}
-
 func IsAllowedOrigin(origin string) bool {
 	for _, o := range origins {
 		if o == origin {
