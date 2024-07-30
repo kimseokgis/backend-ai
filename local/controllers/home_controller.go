@@ -13,8 +13,3 @@ import (
 
 
 // Home handles the home route.
-// Creates a response with a welcome message and writes it as JSON.
-func Home(w http.ResponseWriter, r *http.Request) {
-	response := createHomeResponse()
-	writeJSONResponse(w, http.StatusOK, response)
-}
