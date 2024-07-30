@@ -54,3 +54,9 @@ func findUserByUsername(username string) (*model.User, error) {
 	return &user, nil
 }
 
+// comparePasswords compares a hashed password with a plain password.
+// Returns an error if the passwords do not match.
+func comparePasswords(hashedPassword, password string) error {
+	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+}
+
