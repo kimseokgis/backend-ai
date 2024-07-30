@@ -42,7 +42,3 @@ import (
 
 
 // CheckPasswordHash compares a hashed password with a plain password.
-// Returns true if the passwords match, false otherwise.
-func CheckPasswordHash(password, hash string) bool {
-	return checkPasswordHash(password, hash)
-}
