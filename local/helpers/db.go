@@ -72,4 +72,14 @@ func SetConnection() *mongo.Database {
 	return connectToMongoDB(dbInfo)
 }
 
+// InsertUser inserts a user into the "users" collection in the database.
+// Returns the inserted ID or nil if insertion fails.
+func InsertUser(db *mongo.Database, user model.User) interface{} {
+	collection := db.Collection("users")
+	insertedID, err := insertUserToDB(collection, user)
+	if err != nil {
+		return nil
+	}
+	return insertedID
+}
 
