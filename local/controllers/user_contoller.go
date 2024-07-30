@@ -30,36 +30,7 @@ import (
 
 
 // RegisterUser handles user registration.
-// Parses the request body, hashes the password, and saves the user to the database.
-// Returns a success or error message as JSON.
-func RegisterUser(c *fiber.Ctx) error {
-	user, err := parseUser(c)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Invalid request payload",
-		})
-	}
 
-	hash, err := hashPassword(user.Password)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "Error hashing password",
-		})
-	}
-
-	user.PasswordHash = hash
-	user.Password = "" // Clear plain password
-
-	if err := saveUser(*user); err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "Error saving user",
-		})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "User registered successfully",
-	})
-}
 
 // LoginUser handles user login.
 // Parses the request body, retrieves the user from the database,
