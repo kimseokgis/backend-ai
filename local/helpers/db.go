@@ -30,11 +30,7 @@ import (
 
 
 // SetConnection establishes a connection to the MongoDB database.
-// Returns the database connection.
-func SetConnection() *mongo.Database {
-	dbInfo := getDBInfo()
-	return connectToMongoDB(dbInfo)
-}
+
 
 // InsertUser inserts a user into the "users" collection in the database.
 // Returns the inserted ID or nil if insertion fails.
