@@ -15,4 +15,9 @@ func main() {
 	// Initialize Fiber app with custom configuration
 	app := fiber.New(config.FiberConfig)
 
+	// Middleware
+	// Logger middleware logs HTTP requests
+	app.Use(logger.New())
+
+
 }
