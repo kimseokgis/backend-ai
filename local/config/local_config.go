@@ -28,6 +28,21 @@ func GetServerConfig() (string, string, string, string) {
 	return IPport, PrivateKey, PublicKey, Internalhost
 }
 
+func GetCorsConfig() cors.Config {
+	origins := []string{
+		"http://127.0.0.1:5500",
+		"http://127.0.0.1:5501",
+	}
+	return cors.Config{
+		AllowOrigins:     strings.Join(origins, ","),
+		AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
+		AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
+		ExposeHeaders:    "Content-Length",
+		AllowCredentials: true,
+	}
+}
+
+
 var origins = []string{
 	"http://127.0.0.1:5500",
 	"http://127.0.0.1:5501",
