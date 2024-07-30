@@ -27,11 +27,7 @@ import (
 
 
 // checkPasswordHash compares a hashed password with a plain password.
-// Returns true if the passwords match, false otherwise.
-func checkPasswordHash(password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
-}
+
 
 // SetConnection establishes a connection to the MongoDB database.
 // Returns the database connection.
