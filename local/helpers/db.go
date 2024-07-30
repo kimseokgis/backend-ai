@@ -11,7 +11,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-
+// getDBInfo constructs the database info from environment variables.
+// Returns the database information.
+func getDBInfo() atdb.DBInfo {
+	return atdb.DBInfo{
+		DBString: os.Getenv("MONGOSTRING"),
+		DBName:   "AI",
+	}
+}
 
 
 
