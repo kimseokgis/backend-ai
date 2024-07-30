@@ -24,10 +24,7 @@ import (
 
 
 // comparePasswords compares a hashed password with a plain password.
-// Returns an error if the passwords do not match.
-func comparePasswords(hashedPassword, password string) error {
-	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
-}
+
 
 // generateToken generates a JWT token for the given username.
 // Returns the token or an error if token generation fails.
