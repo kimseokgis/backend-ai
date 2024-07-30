@@ -21,16 +21,7 @@ import (
 
 
 // findUserInDB finds a user in the specified MongoDB collection by username.
-// Returns the user model or an error if retrieval fails.
-func findUserInDB(collection *mongo.Collection, username string) (*model.User, error) {
-	filter := bson.M{"username": username}
-	var storedUser model.User
-	err := collection.FindOne(context.TODO(), filter).Decode(&storedUser)
-	if err != nil {
-		return nil, err
-	}
-	return &storedUser, nil
-}
+
 
 // hashPassword generates a hashed password using bcrypt.
 // Returns the hashed password or an error if hashing fails.
