@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -22,11 +23,12 @@ func main() {
 	app.Post("/register", controllers.RegisterUser)
 	app.Post("/login", controllers.LoginUser)
 
-	// Start server
-	port := config.IPport
+	// Determine port
+	port := os.Getenv("PORT") // Try to get PORT from environment variable
 	if port == "" {
-		port = ":8080"
+		port = "8080" // Default port
 	}
 
-	log.Fatal(app.Listen(port))
+	log.Printf("Server is running on http://127.0.0.1:%s\n", port)
+	log.Fatal(app.Listen(":" + port))
 }

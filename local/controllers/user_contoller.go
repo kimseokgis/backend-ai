@@ -8,6 +8,8 @@ import (
 	"github.com/kimseokgis/backend-ai/local/config"
 	"github.com/kimseokgis/backend-ai/local/helpers"
 	"github.com/kimseokgis/backend-ai/model"
+	"go.mongodb.org/mongo-driver/bson"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func RegisterUser(c *fiber.Ctx) error {
@@ -18,46 +20,65 @@ func RegisterUser(c *fiber.Ctx) error {
 		})
 	}
 
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
-
-	hash, err := helper.HashPass(user.Password)
+	// Hash password
+	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Error hashing password",
 		})
 	}
-	user.PasswordHash = hash
+
+	// Set hashed password
+	user.PasswordHash = string(hash)
+	user.Password = "" // Clear plain password
+
+	// Save user to database
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
 	helpers.InsertUser(conn, user)
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "User registered successfully",
 	})
 }
 
 func LoginUser(c *fiber.Ctx) error {
-	var userdata model.User
-	if err := c.BodyParser(&userdata); err != nil {
+	var credentials model.User
+	if err := c.BodyParser(&credentials); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "error parsing application/json: " + err.Error(),
+			"message": "Invalid request payload",
 		})
 	}
 
 	conn := helper.SetConnection()
 	defer conn.Client().Disconnect(context.TODO())
 
-	if helper.IsPasswordValid(conn, userdata) {
-		tokenstring, err := helper.EncodeWithUsername(userdata.Username, config.PrivateKey)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"message": "Gagal Encode Token : " + err.Error(),
-			})
-		}
-		return c.Status(fiber.StatusOK).JSON(fiber.Map{
-			"message": "Selamat Datang Anda Berhasil Login",
-			"token":   tokenstring,
+	// Retrieve user from database
+	var storedUser model.User
+	err := conn.Collection("users").FindOne(context.TODO(), bson.M{"username": credentials.Username}).Decode(&storedUser)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Username atau Password Anda Salah",
 		})
 	}
-	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-		"message": "Username atau Password Anda Salah",
+
+	// Compare hash and password
+	if err := bcrypt.CompareHashAndPassword([]byte(storedUser.PasswordHash), []byte(credentials.Password)); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Username atau Password Anda Salah",
+		})
+	}
+
+	// Generate token or handle successful login
+	token, err := helper.EncodeWithUsername(storedUser.Username, config.PrivateKey)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Error generating token",
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Selamat Datang Anda Berhasil Login",
+		"token":   token,
 	})
 }
