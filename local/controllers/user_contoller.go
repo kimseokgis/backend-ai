@@ -32,3 +32,10 @@ func hashPassword(password string) (string, error) {
 	return string(hash), nil
 }
 
+// saveUser saves the user to the database.
+// Returns an error if saving fails.
+func saveUser(user model.User) error {
+	conn := helper.SetConnection()
+	defer conn.Client().Disconnect(context.TODO())
+	return helpers.InsertUser(conn, user)
+}
