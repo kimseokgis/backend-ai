@@ -11,13 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func SetConnection() *mongo.Database {
-	var DBmongoinfo = atdb.DBInfo{
-		DBString: os.Getenv("MONGOSTRING"),
-		DBName:   "AI",
-	}
-	return atdb.MongoConnect(DBmongoinfo)
-}
+
 func InsertUser(db *mongo.Database, user model.User) interface{} {
 	collection := db.Collection("users")
 	result, err := collection.InsertOne(context.TODO(), user)
