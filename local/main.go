@@ -31,4 +31,11 @@ func main() {
 	// Route for user login
 	app.Post("/login", controllers.LoginUser)
 
+	// Determine port from environment variable or default to 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port
+	}
+
+
 }
