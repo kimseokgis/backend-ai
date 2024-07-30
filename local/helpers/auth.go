@@ -16,12 +16,3 @@ import (
 
 
 // GenerateToken generates a PASETO token for the given username and private key.
-// Returns the signed token or an error if any step fails.
-func GenerateToken(username, privatekey string) (string, error) {
-	token := createPasetoToken(username)
-	key, err := getPasetoSecretKey(privatekey)
-	if err != nil {
-		return "", err
-	}
-	return signPasetoToken(token, key), nil
-}
