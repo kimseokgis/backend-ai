@@ -27,10 +27,7 @@ import (
 
 
 // generateToken generates a JWT token for the given username.
-// Returns the token or an error if token generation fails.
-func generateToken(username string) (string, error) {
-	return helper.EncodeWithUsername(username, config.PrivateKey)
-}
+
 
 // RegisterUser handles user registration.
 // Parses the request body, hashes the password, and saves the user to the database.
