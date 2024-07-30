@@ -33,15 +33,7 @@ import (
 
 
 // InsertUser inserts a user into the "users" collection in the database.
-// Returns the inserted ID or nil if insertion fails.
-func InsertUser(db *mongo.Database, user model.User) interface{} {
-	collection := db.Collection("users")
-	insertedID, err := insertUserToDB(collection, user)
-	if err != nil {
-		return nil
-	}
-	return insertedID
-}
+
 
 // ValidatePassword validates the user's password against the stored hash in the database.
 // Returns true if the password is valid, false otherwise.
