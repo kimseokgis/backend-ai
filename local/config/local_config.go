@@ -56,10 +56,7 @@ func IsAllowedOrigin(origin string) bool {
 	return false
 }
 
-var origins = []string{
-	"http://127.0.0.1:5500",
-	"http://127.0.0.1:5501",
-}
+
 var CorsConfig = cors.Config{
 	AllowOrigins:     strings.Join(origins, ","),
 	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
