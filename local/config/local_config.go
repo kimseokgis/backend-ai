@@ -23,7 +23,10 @@ var (
 	Internalhost = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
 )
 
-
+var origins = []string{
+	"http://127.0.0.1:5500",
+	"http://127.0.0.1:5501",
+}
 
 
 
