@@ -9,6 +9,3 @@ import (
 	"github.com/kimseokgis/backend-ai/local/config"
 	"github.com/kimseokgis/backend-ai/local/controllers"
 )
-
-// main is the entry point of the application.
-
