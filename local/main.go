@@ -37,5 +37,9 @@ func main() {
 		port = "8080" // Default port
 	}
 
+	// Log the server start message and start the server
+	log.Printf("Server is running on http://127.0.0.1:%s\n", port)
+	log.Fatal(app.Listen(":" + port))
+
 
 }
