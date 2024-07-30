@@ -60,3 +60,8 @@ func comparePasswords(hashedPassword, password string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
 
+// generateToken generates a JWT token for the given username.
+// Returns the token or an error if token generation fails.
+func generateToken(username string) (string, error) {
+	return helper.EncodeWithUsername(username, config.PrivateKey)
+}
