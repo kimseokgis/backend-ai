@@ -24,14 +24,7 @@ import (
 
 
 // hashPassword generates a hashed password using bcrypt.
-// Returns the hashed password or an error if hashing fails.
-func hashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	if err != nil {
-		return "", err
-	}
-	return string(bytes), nil
-}
+
 
 // checkPasswordHash compares a hashed password with a plain password.
 // Returns true if the passwords match, false otherwise.
