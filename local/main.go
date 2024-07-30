@@ -11,35 +11,4 @@ import (
 )
 
 // main is the entry point of the application.
-func main() {
-	// Initialize Fiber app with custom configuration
-	app := fiber.New(config.FiberConfig)
 
-	// Middleware
-	// Logger middleware logs HTTP requests
-	app.Use(logger.New())
-
-	// Routes
-	// Root route to check if the server is running
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Welcome to Makmur AI!")
-	})
-
-	// Route for user registration
-	app.Post("/register", controllers.RegisterUser)
-
-	// Route for user login
-	app.Post("/login", controllers.LoginUser)
-
-	// Determine port from environment variable or default to 8080
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080" // Default port
-	}
-
-	// Log the server start message and start the server
-	log.Printf("Server is running on http://127.0.0.1:%s\n", port)
-	log.Fatal(app.Listen(":" + port))
-
-
-}
