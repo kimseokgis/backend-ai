@@ -20,6 +20,11 @@ func getDBInfo() atdb.DBInfo {
 	}
 }
 
+// connectToMongoDB establishes a connection to MongoDB.
+// Takes the database info and returns the database connection.
+func connectToMongoDB(dbInfo atdb.DBInfo) *mongo.Database {
+	return atdb.MongoConnect(dbInfo)
+}
 
 
 
