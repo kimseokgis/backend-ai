@@ -8,13 +8,17 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-var FiberConfig = fiber.Config{
-	Prefork:       true,
-	CaseSensitive: true,
-	StrictRouting: true,
-	ServerHeader:  "Makmur",
-	AppName:       "Makmur AI",
+// GetFiberConfig returns the configuration for Fiber
+func GetFiberConfig() fiber.Config {
+	return fiber.Config{
+		Prefork:       true,
+		CaseSensitive: true,
+		StrictRouting: true,
+		ServerHeader:  "Makmur",
+		AppName:       "Makmur AI",
+	}
 }
+
 var (
 	IPport       = os.Getenv("IP") + ":" + os.Getenv("PORT")
 	PrivateKey   = os.Getenv("PRIVATEKEY")
