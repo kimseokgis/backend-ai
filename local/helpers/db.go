@@ -17,7 +17,4 @@ import (
 
 
 
-func CheckPasswordHash(passwordhash, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(passwordhash))
-	return err == nil
-}
+
