@@ -12,5 +12,7 @@ import (
 
 // main is the entry point of the application.
 func main() {
-	
+	// Initialize Fiber app with custom configuration
+	app := fiber.New(config.FiberConfig)
+
 }
