@@ -16,3 +16,13 @@ func createPasetoToken(username string) *paseto.Token {
 	token.SetString("user", username)
 	return token
 }
+
+// getPasetoSecretKey generates a PASETO secret key from a given hex string.
+// Returns the secret key or an error if key generation fails.
+func getPasetoSecretKey(privatekey string) (*paseto.V4AsymmetricSecretKey, error) {
+	key, err := paseto.NewV4AsymmetricSecretKeyFromHex(privatekey)
+	if err != nil {
+		return nil, err
+	}
+	return key, nil
+}
