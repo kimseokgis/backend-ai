@@ -33,39 +33,3 @@ import (
 
 
 // LoginUser handles user login.
-// Parses the request body, retrieves the user from the database,
-// compares passwords, and generates a JWT token if successful.
-// Returns a success message with the token or an error message as JSON.
-func LoginUser(c *fiber.Ctx) error {
-	credentials, err := parseUser(c)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Invalid request payload",
-		})
-	}
-
-	storedUser, err := findUserByUsername(credentials.Username)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Username atau Password Anda Salah",
-		})
-	}
-
-	if err := comparePasswords(storedUser.PasswordHash, credentials.Password); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Username atau Password Anda Salah",
-		})
-	}
-
-	token, err := generateToken(storedUser.Username)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "Error generating token",
-		})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Selamat Datang Anda Berhasil Login",
-		"token":   token,
-	})
-}
