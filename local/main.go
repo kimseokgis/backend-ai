@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-	// Menggunakan konfigurasi Fiber yang benar
 	app := fiber.New(config.FiberConfig)
 
 	// Middleware
