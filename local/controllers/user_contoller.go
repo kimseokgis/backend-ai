@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/kimseokgis/backend-ai/helper"
+	"github.com/kimseokgis/backend-ai/local/helpers"
 	"github.com/kimseokgis/backend-ai/model"
 )
 
@@ -19,13 +20,13 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	conn := helper.SetConnection()
 	defer conn.Client().Disconnect(context.TODO())
 
-	hash, err := helper.HashPassword(user.Password)
+	hash, err := helper.HashPass(user.Password)
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
 		return
 	}
 	user.PasswordHash = hash
-	helper.InsertUser(conn, user)
+	helpers.InsertUser(conn, user)
 	response := map[string]string{"message": "User registered successfully"}
 	helper.WriteJSON(w, http.StatusOK, response)
 }
