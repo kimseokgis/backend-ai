@@ -16,6 +16,13 @@ var FiberConfig = fiber.Config{
 	AppName:       "Makmur AI",
 }
 
+var (
+	IPport       = os.Getenv("IP") + ":" + os.Getenv("PORT")
+	PrivateKey   = os.Getenv("PRIVATEKEY")
+	PublicKey    = os.Getenv("PUBLICKEY")
+	Internalhost = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
+)
+
 
 
 
