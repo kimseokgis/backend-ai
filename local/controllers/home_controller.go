@@ -14,3 +14,8 @@ func createHomeResponse() map[string]string {
 	}
 }
 
+// writeJSONResponse writes a JSON response using the helper package.
+// Takes an HTTP response writer, status code, and the data to be written.
+func writeJSONResponse(w http.ResponseWriter, statusCode int, data interface{}) {
+	helper.WriteJSON(w, statusCode, data)
+}
