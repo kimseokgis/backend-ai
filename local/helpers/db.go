@@ -83,3 +83,13 @@ func InsertUser(db *mongo.Database, user model.User) interface{} {
 	return insertedID
 }
 
+// ValidatePassword validates the user's password against the stored hash in the database.
+// Returns true if the password is valid, false otherwise.
+func ValidatePassword(conn *mongo.Database, user model.User) bool {
+	collection := conn.Collection("users")
+	storedUser, err := findUserInDB(collection, user.Username)
+	if err != nil {
+		return false
+	}
+	return checkPasswordHash(user.Password, storedUser.PasswordHash)
+}
