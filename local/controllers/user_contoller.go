@@ -19,12 +19,6 @@ import (
 
 
 // saveUser saves the user to the database.
-// Returns an error if saving fails.
-func saveUser(user model.User) error {
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
-	return helpers.InsertUser(conn, user)
-}
 
 // findUserByUsername retrieves a user from the database by username.
 // Returns the User model or an error if retrieval fails.
