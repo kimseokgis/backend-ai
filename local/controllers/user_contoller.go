@@ -21,3 +21,14 @@ func parseUser(c *fiber.Ctx) (*model.User, error) {
 	}
 	return &user, nil
 }
+
+// hashPassword hashes the given password.
+// Returns the hashed password or an error if hashing fails.
+func hashPassword(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
+}
+
