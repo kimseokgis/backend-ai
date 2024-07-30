@@ -65,5 +65,11 @@ func checkPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
+// SetConnection establishes a connection to the MongoDB database.
+// Returns the database connection.
+func SetConnection() *mongo.Database {
+	dbInfo := getDBInfo()
+	return connectToMongoDB(dbInfo)
+}
 
 
