@@ -13,18 +13,7 @@ import (
 
 
 
-func ValidatePassword(conn *mongo.Database, user model.User) bool {
-	collection := conn.Collection("users")
-	filter := bson.M{
-		"username": user.Username,
-	}
-	var storedUser model.User
-	err := collection.FindOne(context.TODO(), filter).Decode(&storedUser)
-	if err != nil {
-		return false
-	}
-	return CheckPasswordHash(user.Password, storedUser.PasswordHash)
-}
+
 
 func HashPass(passwordhash string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(passwordhash), 14)
