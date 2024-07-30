@@ -28,6 +28,7 @@ func main() {
 	// Route for user registration
 	app.Post("/register", controllers.RegisterUser)
 
-
+	// Route for user login
+	app.Post("/login", controllers.LoginUser)
 
 }
