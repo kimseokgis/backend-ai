@@ -19,12 +19,14 @@ func GetFiberConfig() fiber.Config {
 	}
 }
 
-var (
-	IPport       = os.Getenv("IP") + ":" + os.Getenv("PORT")
-	PrivateKey   = os.Getenv("PRIVATEKEY")
-	PublicKey    = os.Getenv("PUBLICKEY")
-	Internalhost = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
-)
+// GetServerConfig returns the server configuration
+func GetServerConfig() (string, string, string, string) {
+	IPport := os.Getenv("IP") + ":" + os.Getenv("PORT")
+	PrivateKey := os.Getenv("PRIVATEKEY")
+	PublicKey := os.Getenv("PUBLICKEY")
+	Internalhost := os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
+	return IPport, PrivateKey, PublicKey, Internalhost
+}
 
 var origins = []string{
 	"http://127.0.0.1:5500",
