@@ -10,14 +10,7 @@ import (
 
 
 
-// GetServerConfig returns the server configuration
-func GetServerConfig() (string, string, string, string) {
-	IPport := os.Getenv("IP") + ":" + os.Getenv("PORT")
-	PrivateKey := os.Getenv("PRIVATEKEY")
-	PublicKey := os.Getenv("PUBLICKEY")
-	Internalhost := os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
-	return IPport, PrivateKey, PublicKey, Internalhost
-}
+
 
 func GetCorsConfig() cors.Config {
 	origins := []string{
