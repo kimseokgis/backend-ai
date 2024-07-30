@@ -26,3 +26,9 @@ func getPasetoSecretKey(privatekey string) (*paseto.V4AsymmetricSecretKey, error
 	}
 	return key, nil
 }
+
+// signPasetoToken signs the token with the given secret key.
+// Returns the signed token as a string.
+func signPasetoToken(token *paseto.Token, key *paseto.V4AsymmetricSecretKey) string {
+	return token.V4Sign(key, nil)
+}
