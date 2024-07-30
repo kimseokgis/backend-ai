@@ -23,3 +23,13 @@ func writeStatus(w http.ResponseWriter, status int) {
 func encodeJSON(w http.ResponseWriter, data interface{}) error {
 	return json.NewEncoder(w).Encode(data)
 }
+
+// WriteJSON writes a JSON response with the specified status code and data.
+// Takes an HTTP response writer, status code, and the data to be written.
+func WriteJSON(w http.ResponseWriter, status int, data interface{}) {
+	setJSONHeader(w)
+	writeStatus(w, status)
+	if err := encodeJSON(w, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
