@@ -21,18 +21,7 @@ import (
 // saveUser saves the user to the database.
 
 // findUserByUsername retrieves a user from the database by username.
-// Returns the User model or an error if retrieval fails.
-func findUserByUsername(username string) (*model.User, error) {
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
 
-	var user model.User
-	err := conn.Collection("users").FindOne(context.TODO(), bson.M{"username": username}).Decode(&user)
-	if err != nil {
-		return nil, err
-	}
-	return &user, nil
-}
 
 // comparePasswords compares a hashed password with a plain password.
 // Returns an error if the passwords do not match.
