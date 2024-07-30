@@ -99,3 +99,9 @@ func ValidatePassword(conn *mongo.Database, user model.User) bool {
 func HashPass(password string) (string, error) {
 	return hashPassword(password)
 }
+
+// CheckPasswordHash compares a hashed password with a plain password.
+// Returns true if the passwords match, false otherwise.
+func CheckPasswordHash(password, hash string) bool {
+	return checkPasswordHash(password, hash)
+}
