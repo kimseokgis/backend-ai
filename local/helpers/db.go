@@ -48,7 +48,15 @@ func findUserInDB(collection *mongo.Collection, username string) (*model.User, e
 	return &storedUser, nil
 }
 
-
+// hashPassword generates a hashed password using bcrypt.
+// Returns the hashed password or an error if hashing fails.
+func hashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	if err != nil {
+		return "", err
+	}
+	return string(bytes), nil
+}
 
 
 
