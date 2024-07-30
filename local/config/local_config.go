@@ -36,4 +36,12 @@ var CorsConfig = cors.Config{
 	AllowCredentials: true,
 }
 
+func IsAllowedOrigin(origin string) bool {
+	for _, o := range origins {
+		if o == origin {
+			return true
+		}
+	}
+	return false
+}
 
