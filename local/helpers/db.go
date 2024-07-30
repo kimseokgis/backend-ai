@@ -39,10 +39,7 @@ import (
 
 
 // HashPass hashes a password using bcrypt.
-// Returns the hashed password or an error if hashing fails.
-func HashPass(password string) (string, error) {
-	return hashPassword(password)
-}
+
 
 // CheckPasswordHash compares a hashed password with a plain password.
 // Returns true if the passwords match, false otherwise.
