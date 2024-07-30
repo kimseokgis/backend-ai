@@ -8,16 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-// GetFiberConfig returns the configuration for Fiber
-func GetFiberConfig() fiber.Config {
-	return fiber.Config{
-		Prefork:       true,
-		CaseSensitive: true,
-		StrictRouting: true,
-		ServerHeader:  "Makmur",
-		AppName:       "Makmur AI",
-	}
-}
+
 
 // GetServerConfig returns the server configuration
 func GetServerConfig() (string, string, string, string) {
