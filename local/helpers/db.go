@@ -8,6 +8,7 @@ import (
 	"github.com/kimseokgis/backend-ai/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func SetConnection() *mongo.Database {
@@ -36,4 +37,9 @@ func ValidatePassword(conn *mongo.Database, user model.User) bool {
 		return false
 	}
 	return CheckPasswordHash(user.Password, storedUser.PasswordHash)
+}
+
+func HashPass(passwordhash string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(passwordhash), 14)
+	return string(bytes), err
 }
