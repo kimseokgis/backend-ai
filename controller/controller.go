@@ -35,33 +35,12 @@ func Comment(respw http.ResponseWriter, req *http.Request) {
 	conn := helper.SetConnection()
 	err := json.NewDecoder(req.Body).Decode(comment)
 	if err != nil {
-
-// UpdateUser updates a user by ID
-func UpdateUser(c *fiber.Ctx) error {
-	id := c.Params("id")
-	var user model.User
-
-	if err := config.DB.First(&user, id).Error; err != nil {
-		return helper.ErrorResponse(c, "User not found")
+		resp.Message = "error parsing application/json: " + err.Error()
+		helper.WriteJSON(respw, http.StatusNotAcceptable, resp)
 	}
-
-	if err := c.BodyParser(&user); err != nil {
-		return helper.ErrorResponse(c, err.Error())
-	}
-
-	config.DB.Save(&user)
-	return c.JSON(user)
-}
-
-// DeleteUser deletes a user by ID
-func DeleteUser(c *fiber.Ctx) error {
-	id := c.Params("id")
-	var user model.User
-
-	if err := config.DB.First(&user, id).Error; err != nil {
-		return helper.ErrorResponse(c, "User not found")
-	}
-
-	config.DB.Delete(&user)
-	return c.SendStatus(fiber.StatusNoContent)
+	insID := helper.InsertComment(conn, *comment)
+	resp.Status = true
+	resp.Message = fmt.Sprintf("Data berhasil diinsert %s", insID)
+	helper.WriteJSON(respw, http.StatusOK, resp)
+	return
 }
