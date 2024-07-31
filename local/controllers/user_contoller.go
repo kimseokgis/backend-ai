@@ -41,14 +41,3 @@ func RegisterUser(c *fiber.Ctx) error {
 		"message": "User registered successfully",
 	})
 }
-
-func LoginUser(c *fiber.Ctx) error {
-	var credentials model.User
-	if err := c.BodyParser(&credentials); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Invalid request payload",
-		})
-	}
-
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
