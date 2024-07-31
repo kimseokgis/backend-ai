@@ -8,9 +8,10 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
-// GenerateToken creates a new PASETO token
-func GenerateToken(userID string) (string, error) {
-	now := time.Now()
+var origins = []string{
+	"http://127.0.0.1:5500",
+	"http://127.0.0.1:5501",
+	"https://iteung.ulbi.ac.id",
 	builder := paseto.NewToken().
 		SetIssuedAt(now).
 		SetExpiration(now.Add(24 * time.Hour)).
