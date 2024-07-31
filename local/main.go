@@ -9,10 +9,3 @@ import (
 	"github.com/kimseokgis/backend-ai/local/config"
 	"github.com/kimseokgis/backend-ai/local/controllers"
 )
-
-func main() {
-	app := fiber.New(config.FiberConfig)
-
-	// Middleware
-	app.Use(logger.New())
-
