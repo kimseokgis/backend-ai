@@ -29,7 +29,10 @@ func GetUser(c *fiber.Ctx) error {
 func CreateUser(c *fiber.Ctx) error {
 	var user model.User
 	helper.WriteJSON(respw, http.StatusNotFound, resp)
-}
+	
+	if err := c.BodyParser(&user); err != nil {
+		return helper.ErrorResponse(c, err.Error())
+	}
 
 func Comment(respw http.ResponseWriter, req *http.Request) {
 	var resp model.Response
