@@ -15,7 +15,9 @@ var origins = []string{
 	"https://whatsauth.github.io",
 	"https://rofinafiin.github.io",
 	"https://gocroot.github.io/",
-		SetSubject(userID)
+	"https://gocroot-baru.herokuapp.com/",
+	"https://kimseokgis.github.io",
+	"https://kimseokgis.advocata.me",
 
 	secret := []byte("YELLOW SUBMARINE, BLACK WIZARDRY")
 	return builder.V2Encrypt(secret, nil)
