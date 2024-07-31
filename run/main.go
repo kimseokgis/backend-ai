@@ -10,10 +10,10 @@ import (
 // Define the logging middleware
 func loggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		log.Printf("Started %s %s", r.Method, r.URL.Path)
 
-		
-	config.ConnectDatabase()
-
+		next.ServeHTTP(w, r)
 	// Middleware
 	app.Use(cors.New())
 
