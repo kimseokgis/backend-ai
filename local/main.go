@@ -16,9 +16,3 @@ func main() {
 	// Middleware
 	app.Use(logger.New())
 
-	// Routes
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Welcome to Makmur AI!")
-	})
-	app.Post("/register", controllers.RegisterUser)
-	app.Post("/login", controllers.LoginUser)
