@@ -11,3 +11,7 @@ func main() {
 	app := fiber.New()
 
 	// Connect to the database
+	config.ConnectDatabase()
+
+	// Middleware
+	app.Use(cors.New())
