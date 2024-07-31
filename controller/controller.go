@@ -29,14 +29,18 @@ func GetUser(c *fiber.Ctx) error {
 func CreateUser(c *fiber.Ctx) error {
 	var user model.User
 	helper.WriteJSON(respw, http.StatusNotFound, resp)
-	
+
 	if err := c.BodyParser(&user); err != nil {
 		return helper.ErrorResponse(c, err.Error())
 	}
 
-func Comment(respw http.ResponseWriter, req *http.Request) {
-	var resp model.Response
-	comment := new(model.Comment)
+	// Hash the password
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
+	user.Password = string(hashedPassword)
+
+	if err := config.DB.Create(&user).Error; err != nil {
+
+		
 	resp.Status = false
 	conn := helper.SetConnection()
 	err := json.NewDecoder(req.Body).Decode(comment)
