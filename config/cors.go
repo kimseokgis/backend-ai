@@ -24,9 +24,9 @@ var Internalhost string = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
 
 var Cors = cors.Config{
 	AllowOrigins:     strings.Join(origins[:], ","),
-
-// ErrorResponse sends an error response
-func ErrorResponse(c *fiber.Ctx, message string) error {
+	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
+	AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
+	ExposeHeaders:    "Content-Length",
 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 		"error": message,
 	})
