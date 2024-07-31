@@ -15,5 +15,6 @@ var Iteung = fiber.Config{
 }
 var IPport, netstring = helper.GetAddress()
 
-var PrivateKey = os.Getenv("PRIVATEKEY")
-var PublicKey = os.Getenv("PUBLICKEY")
+DB = database
+fmt.Println("Database connection established")
+}
