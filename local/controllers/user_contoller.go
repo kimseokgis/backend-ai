@@ -68,17 +68,3 @@ func LoginUser(c *fiber.Ctx) error {
 			"message": "Username atau Password Anda Salah",
 		})
 	}
-
-	// Generate token or handle successful login
-	token, err := helper.EncodeWithUsername(storedUser.Username, config.PrivateKey)
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"message": "Error generating token",
-		})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Selamat Datang Anda Berhasil Login",
-		"token":   token,
-	})
-}
