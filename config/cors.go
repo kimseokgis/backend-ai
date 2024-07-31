@@ -12,9 +12,10 @@ func GenerateToken(userID string) (string, error) {
 	builder := paseto.NewToken().
 		SetIssuedAt(now).
 		SetExpiration(now.Add(24 * time.Hour)).
-	"https://gocroot.github.io/",
-	"https://gocroot-baru.herokuapp.com/",
-	"https://kimseokgis.github.io",
+		SetSubject(userID)
+
+	secret := []byte("YELLOW SUBMARINE, BLACK WIZARDRY")
+	return builder.V2Encrypt(secret, nil)
 	"https://kimseokgis.advocata.me",
 }
 
