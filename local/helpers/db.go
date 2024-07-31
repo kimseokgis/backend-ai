@@ -38,5 +38,3 @@ func ValidatePassword(conn *mongo.Database, user model.User) bool {
 	if err != nil {
 		return false
 	}
-	return CheckPasswordHash(user.Password, storedUser.PasswordHash)
-}
