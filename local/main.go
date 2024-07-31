@@ -22,13 +22,3 @@ func main() {
 	})
 	app.Post("/register", controllers.RegisterUser)
 	app.Post("/login", controllers.LoginUser)
-
-	// Determine port
-	port := os.Getenv("PORT") // Try to get PORT from environment variable
-	if port == "" {
-		port = "8080" // Default port
-	}
-
-	log.Printf("Server is running on http://127.0.0.1:%s\n", port)
-	log.Fatal(app.Listen(":" + port))
-}
