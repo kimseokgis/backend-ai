@@ -2,3 +2,4 @@
 *.env
 test.go
 *.h5
+/outputmodels
