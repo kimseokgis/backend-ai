@@ -47,3 +47,6 @@ func SetAccessControlHeaders(w http.ResponseWriter, r *http.Request) bool {
 		if r.Method == http.MethodOptions {
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login")
+			w.Header().Set("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT")
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			w.Header().Set("Access-Control-Max-Age", "3600")
