@@ -10,11 +10,3 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
-
-func SetConnection() *mongo.Database {
-	var DBmongoinfo = atdb.DBInfo{
-		DBString: os.Getenv("MONGOSTRING"),
-		DBName:   "AI",
-	}
-	return atdb.MongoConnect(DBmongoinfo)
-}
