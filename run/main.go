@@ -21,9 +21,12 @@ func loggingMiddleware(next http.Handler) http.Handler {
 func main() {
 	// Create a new ServeMux
 	mux := http.NewServeMux()
-	
-	// Setup routes
-	routes.SetupRoutes(app)
+
+	// Register your handler
+	mux.HandleFunc("/", url.Web)
+
+	// Wrap the mux with the logging middleware
+	loggedMux := loggingMiddleware(mux)
 
 	// Start the server
 	app.Listen(":8080")
