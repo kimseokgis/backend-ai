@@ -16,7 +16,10 @@ func GenerateToken(userID string) (string, error) {
 
 	secret := []byte("YELLOW SUBMARINE, BLACK WIZARDRY")
 	return builder.V2Encrypt(secret, nil)
-	"https://kimseokgis.advocata.me",
+}
+
+// ErrorResponse sends an error response
+func ErrorResponse(c *fiber.Ctx, message string) error {
 }
 
 var Internalhost string = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
