@@ -27,7 +27,9 @@ var Cors = cors.Config{
 	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
 	AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Request-Headers, token, Access-Control-Allow-Origin, Authorization, Bearer, login",
 	ExposeHeaders:    "Content-Length",
-	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-		"error": message,
-	})
+	AllowCredentials: true,
 }
+
+func isAllowedOrigin(origin string) bool {
+	for _, o := range origins {
+		if o == origin {
