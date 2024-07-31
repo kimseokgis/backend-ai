@@ -1,12 +1,12 @@
 package config
 
 import (
-	"fmt"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/gofiber/fiber/v2"
+	"github.com/kimseokgis/backend-ai/helper"
 	"os"
 )
 
+var Iteung = fiber.Config{
 				Prefork:       true,
 				CaseSensitive: true,
 				StrictRouting: true,
