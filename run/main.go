@@ -16,9 +16,9 @@ func main() {
 	// Middleware
 	app.Use(cors.New())
 
-		next.ServeHTTP(w, r)
-
-		log.Printf("Completed %s in %v", r.URL.Path, time.Since(start))
+	// Setup routes
+	routes.SetupRoutes(app)
+	
 	})
 }
 
