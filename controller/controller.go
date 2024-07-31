@@ -45,10 +45,11 @@ func CreateUser(c *fiber.Ctx) error {
 	return c.JSON(user)
 }
 
-	resp.Status = false
-	conn := helper.SetConnection()
-	err := json.NewDecoder(req.Body).Decode(comment)
-	if err != nil {
+// UpdateUser updates a user by ID
+func UpdateUser(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var user model.User
+	
 		resp.Message = "error parsing application/json: " + err.Error()
 		helper.WriteJSON(respw, http.StatusNotAcceptable, resp)
 	}
