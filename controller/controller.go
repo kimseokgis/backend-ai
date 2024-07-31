@@ -18,6 +18,9 @@ func GetUsers(c *fiber.Ctx) error {
 // GetUser returns a user by ID
 func GetUser(c *fiber.Ctx) error {
 	id := c.Params("id")
+	var user model.User
+	if err := config.DB.First(&user, id).Error; err != nil {
+		return helper.ErrorResponse(c, "User not found")
 
 func NotFound(respw http.ResponseWriter, req *http.Request) {
 	var resp model.Response
