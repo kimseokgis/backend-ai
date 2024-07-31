@@ -4,11 +4,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kimseokgis/backend-ai/config"
 	"golang.org/x/crypto/bcrypt"
-	"net/http"
+	"strconv"
 )
 
-func HomeMakmur(w http.ResponseWriter, r *http.Request) {
-	Response := fmt.Sprintf("Makmur AI chooy %s", "8080")
+// GetUsers returns all users
+func GetUsers(c *fiber.Ctx) error {
 	response, err := json.Marshal(Response)
 	if err != nil {
 		http.Error(w, "Internal server error: JSON marshaling failed", http.StatusInternalServerError)
