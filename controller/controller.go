@@ -53,10 +53,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	if err := config.DB.First(&user, id).Error; err != nil {
 		return helper.ErrorResponse(c, "User not found")
 	}
-	
-	insID := helper.InsertComment(conn, *comment)
-	resp.Status = true
-	resp.Message = fmt.Sprintf("Data berhasil diinsert %s", insID)
-	helper.WriteJSON(respw, http.StatusOK, resp)
-	return
-}
+
+	if err := c.BodyParser(&user); err != nil {
+		return helper.ErrorResponse(c, err.Error())
+	}
