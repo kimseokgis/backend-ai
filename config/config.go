@@ -1,8 +1,9 @@
 package config
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/kimseokgis/backend-ai/helper"
+	"fmt"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"os"
 )
 
