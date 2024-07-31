@@ -49,10 +49,11 @@ func CreateUser(c *fiber.Ctx) error {
 func UpdateUser(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var user model.User
-	
-		resp.Message = "error parsing application/json: " + err.Error()
-		helper.WriteJSON(respw, http.StatusNotAcceptable, resp)
+
+	if err := config.DB.First(&user, id).Error; err != nil {
+		return helper.ErrorResponse(c, "User not found")
 	}
+	
 	insID := helper.InsertComment(conn, *comment)
 	resp.Status = true
 	resp.Message = fmt.Sprintf("Data berhasil diinsert %s", insID)
