@@ -22,11 +22,6 @@ func main() {
 	// Start the server
 	app.Listen(":8080")
 }
-
-func main() {
-	// Create a new ServeMux
-	mux := http.NewServeMux()
-
 	// Register your handler
 	mux.HandleFunc("/", url.Web)
 
