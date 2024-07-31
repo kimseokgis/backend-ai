@@ -20,14 +20,11 @@ func HomeMakmur(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-// GetUser returns a user by ID
-func GetUser(c *fiber.Ctx) error {
-	id := c.Params("id")
-	var user model.User
-	if err := config.DB.First(&user, id).Error; err != nil {
-		return helper.ErrorResponse(c, "User not found")
-	}
-	return c.JSON(user)
+// func notfound resp
+func NotFound(respw http.ResponseWriter, req *http.Request) {
+	var resp model.Response
+	resp.Message = "Not Found"
+	helper.WriteJSON(respw, http.StatusNotFound, resp)
 }
 
 // CreateUser creates a new user
