@@ -12,9 +12,9 @@ var origins = []string{
 	"http://127.0.0.1:5500",
 	"http://127.0.0.1:5501",
 	"https://iteung.ulbi.ac.id",
-	builder := paseto.NewToken().
-		SetIssuedAt(now).
-		SetExpiration(now.Add(24 * time.Hour)).
+	"https://whatsauth.github.io",
+	"https://rofinafiin.github.io",
+	"https://gocroot.github.io/",
 		SetSubject(userID)
 
 	secret := []byte("YELLOW SUBMARINE, BLACK WIZARDRY")
