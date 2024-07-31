@@ -18,8 +18,9 @@ func main() {
 
 	// Setup routes
 	routes.SetupRoutes(app)
-	
-	})
+
+	// Start the server
+	app.Listen(":8080")
 }
 
 func main() {
