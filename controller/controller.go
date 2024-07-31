@@ -27,25 +27,14 @@ func NotFound(respw http.ResponseWriter, req *http.Request) {
 	helper.WriteJSON(respw, http.StatusNotFound, resp)
 }
 
-// CreateUser creates a new user
-func CreateUser(c *fiber.Ctx) error {
-	var user model.User
-	helper.WriteJSON(respw, http.StatusNotFound, resp)
-
-	if err := c.BodyParser(&user); err != nil {
-		return helper.ErrorResponse(c, err.Error())
-	}
-
-	// Hash the password
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
-	user.Password = string(hashedPassword)
-
-	if err := config.DB.Create(&user).Error; err != nil {
-		return helper.ErrorResponse(c, "Could not create user")
-	}
-
-	return c.JSON(user)
-}
+// func comment
+func Comment(respw http.ResponseWriter, req *http.Request) {
+	var resp model.Response
+	comment := new(model.Comment)
+	resp.Status = false
+	conn := helper.SetConnection()
+	err := json.NewDecoder(req.Body).Decode(comment)
+	if err != nil {
 
 // UpdateUser updates a user by ID
 func UpdateUser(c *fiber.Ctx) error {
