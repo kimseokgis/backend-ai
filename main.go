@@ -7,6 +7,7 @@ import (
 	"github.com/kimseokgis/backend-ai/routes"
 )
 
-func init() {
-	functions.HTTP("makmur", url.Web)
-}
+func main() {
+	app := fiber.New()
+
+	// Connect to the database
