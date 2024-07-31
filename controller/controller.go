@@ -10,10 +10,11 @@ import (
 // GetUsers returns all users
 func GetUsers(c *fiber.Ctx) error {
 	response, err := json.Marshal(Response)
-	if err != nil {
-		http.Error(w, "Internal server error: JSON marshaling failed", http.StatusInternalServerError)
-		return
+	var users []model.User
+	config.DB.Find(&users)
+	return c.JSON(users)
 	}
+	
 	w.Write(response)
 	return
 }
