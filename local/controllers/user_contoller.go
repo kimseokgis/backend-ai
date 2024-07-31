@@ -31,13 +31,3 @@ func RegisterUser(c *fiber.Ctx) error {
 	// Set hashed password
 	user.PasswordHash = string(hash)
 	user.Password = "" // Clear plain password
-
-	// Save user to database
-	conn := helper.SetConnection()
-	defer conn.Client().Disconnect(context.TODO())
-	helpers.InsertUser(conn, user)
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "User registered successfully",
-	})
-}
