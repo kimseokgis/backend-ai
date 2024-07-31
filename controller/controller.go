@@ -70,3 +70,7 @@ func DeleteUser(c *fiber.Ctx) error {
 	if err := config.DB.First(&user, id).Error; err != nil {
 		return helper.ErrorResponse(c, "User not found")
 	}
+
+	config.DB.Delete(&user)
+	return c.SendStatus(fiber.StatusNoContent)
+}
