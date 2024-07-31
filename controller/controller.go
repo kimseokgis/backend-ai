@@ -57,3 +57,7 @@ func UpdateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(&user); err != nil {
 		return helper.ErrorResponse(c, err.Error())
 	}
+
+	config.DB.Save(&user)
+	return c.JSON(user)
+}
