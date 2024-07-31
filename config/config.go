@@ -7,9 +7,9 @@ import (
 	"os"
 )
 
-var DB *gorm.DB
-
-// ConnectDatabase initializes the database connection
+				Prefork:       true,
+				CaseSensitive: true,
+				StrictRouting: true,
 				ServerHeader:  "Makmur",
 				AppName:       "Makmur ai",
 }
