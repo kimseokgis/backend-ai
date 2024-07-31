@@ -1,11 +1,9 @@
 package config
 
 import (
-	"net/http"
-	"os"
-	"strings"
-
-	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2"
+	"aidanwoods.dev/go-paseto"
+	"time"
 )
 
 var origins = []string{
