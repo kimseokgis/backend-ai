@@ -61,10 +61,3 @@ func LoginUser(c *fiber.Ctx) error {
 			"message": "Username atau Password Anda Salah",
 		})
 	}
-
-	// Compare hash and password
-	if err := bcrypt.CompareHashAndPassword([]byte(storedUser.PasswordHash), []byte(credentials.Password)); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Username atau Password Anda Salah",
-		})
-	}
