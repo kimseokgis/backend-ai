@@ -12,8 +12,9 @@ func main() {
 
 	// Connect to the database
 	config.ConnectDatabase()
-	
-		log.Printf("Started %s %s", r.Method, r.URL.Path)
+
+	// Middleware
+	app.Use(cors.New())
 
 		next.ServeHTTP(w, r)
 
