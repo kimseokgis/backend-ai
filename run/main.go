@@ -18,9 +18,10 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		log.Printf("Completed %s in %v", r.URL.Path, time.Since(start))
 	})
 }
-	// Middleware
-	app.Use(cors.New())
-
+func main() {
+	// Create a new ServeMux
+	mux := http.NewServeMux()
+	
 	// Setup routes
 	routes.SetupRoutes(app)
 
