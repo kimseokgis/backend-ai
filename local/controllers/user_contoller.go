@@ -52,12 +52,3 @@ func LoginUser(c *fiber.Ctx) error {
 
 	conn := helper.SetConnection()
 	defer conn.Client().Disconnect(context.TODO())
-
-	// Retrieve user from database
-	var storedUser model.User
-	err := conn.Collection("users").FindOne(context.TODO(), bson.M{"username": credentials.Username}).Decode(&storedUser)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"message": "Username atau Password Anda Salah",
-		})
-	}
