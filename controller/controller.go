@@ -14,10 +14,10 @@ func GetUsers(c *fiber.Ctx) error {
 	config.DB.Find(&users)
 	return c.JSON(users)
 	}
-	
-	w.Write(response)
-	return
-}
+
+// GetUser returns a user by ID
+func GetUser(c *fiber.Ctx) error {
+	id := c.Params("id")
 
 func NotFound(respw http.ResponseWriter, req *http.Request) {
 	var resp model.Response
