@@ -39,8 +39,12 @@ func CreateUser(c *fiber.Ctx) error {
 	user.Password = string(hashedPassword)
 
 	if err := config.DB.Create(&user).Error; err != nil {
+		return helper.ErrorResponse(c, "Could not create user")
+	}
 
-		
+	return c.JSON(user)
+}
+
 	resp.Status = false
 	conn := helper.SetConnection()
 	err := json.NewDecoder(req.Body).Decode(comment)
