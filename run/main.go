@@ -14,6 +14,10 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		log.Printf("Started %s %s", r.Method, r.URL.Path)
 
 		next.ServeHTTP(w, r)
+		
+		log.Printf("Completed %s in %v", r.URL.Path, time.Since(start))
+	})
+}
 	// Middleware
 	app.Use(cors.New())
 
