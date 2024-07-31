@@ -7,8 +7,8 @@ import (
 	"github.com/kimseokgis/backend-ai/routes"
 )
 
-// Define the logging middleware
-func loggingMiddleware(next http.Handler) http.Handler {
+func main() {
+	app := fiber.New()
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		log.Printf("Started %s %s", r.Method, r.URL.Path)
