@@ -14,10 +14,7 @@ var DB *gorm.DB
 		dsn := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASS") + "@tcp(" + os.Getenv("DB_HOST") + ")/" + os.Getenv("DB_NAME") + "?charset=utf8mb4&parseTime=True&loc=Local"
 		database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
-	if err != nil {
-		panic("Failed to connect to the database!")
-	}
+		var IPport, netstring = helper.GetAddress()
 
-DB = database
-fmt.Println("Database connection established")
-}
+	var PrivateKey = os.Getenv("PRIVATEKEY")
+	var PublicKey = os.Getenv("PUBLICKEY")
