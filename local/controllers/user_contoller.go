@@ -1,14 +1,8 @@
 package controllers
 
 import (
-	"context"
-
 	"github.com/gofiber/fiber/v2"
-	"github.com/kimseokgis/backend-ai/helper"
-	"github.com/kimseokgis/backend-ai/local/config"
-	"github.com/kimseokgis/backend-ai/local/helpers"
 	"github.com/kimseokgis/backend-ai/model"
-	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -30,4 +24,6 @@ func RegisterUser(c *fiber.Ctx) error {
 
 	// Set hashed password
 	user.PasswordHash = string(hash)
-	user.Password = "" // Clear plain password
+	user.Password = ""
+	return err
+}
