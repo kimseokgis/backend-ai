@@ -1,9 +1,11 @@
 package config
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"aidanwoods.dev/go-paseto"
-	"time"
+	"net/http"
+	"os"
+	"strings"
+	
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 // GenerateToken creates a new PASETO token
