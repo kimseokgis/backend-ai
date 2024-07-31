@@ -61,3 +61,8 @@ func UpdateUser(c *fiber.Ctx) error {
 	config.DB.Save(&user)
 	return c.JSON(user)
 }
+
+// DeleteUser deletes a user by ID
+func DeleteUser(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var user model.User
