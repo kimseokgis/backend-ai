@@ -12,9 +12,11 @@ var Iteung = fiber.Config{
 	StrictRouting: true,
 	ServerHeader:  "Makmur",
 	AppName:       "Makmur ai",
-}
-var IPport, netstring = helper.GetAddress()
 
+	if err != nil {
+		panic("Failed to connect to the database!")
+	}
+	
 DB = database
 fmt.Println("Database connection established")
 }
