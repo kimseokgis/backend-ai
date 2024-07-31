@@ -18,10 +18,12 @@ var origins = []string{
 	"https://gocroot-baru.herokuapp.com/",
 	"https://kimseokgis.github.io",
 	"https://kimseokgis.advocata.me",
-
-	secret := []byte("YELLOW SUBMARINE, BLACK WIZARDRY")
-	return builder.V2Encrypt(secret, nil)
 }
+
+var Internalhost string = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
+
+var Cors = cors.Config{
+	AllowOrigins:     strings.Join(origins[:], ","),
 
 // ErrorResponse sends an error response
 func ErrorResponse(c *fiber.Ctx, message string) error {
