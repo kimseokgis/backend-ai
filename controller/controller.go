@@ -8,13 +8,17 @@ import (
 	"net/http"
 )
 
-// GetUsers returns all users
-func GetUsers(c *fiber.Ctx) error {
+// func response homemakmur
+func HomeMakmur(w http.ResponseWriter, r *http.Request) {
+	Response := fmt.Sprintf("Makmur AI chooy %s", "8080")
 	response, err := json.Marshal(Response)
-	var users []model.User
-	config.DB.Find(&users)
-	return c.JSON(users)
+	if err != nil {
+		http.Error(w, "Internal server error: JSON marshaling failed", http.StatusInternalServerError)
+		return
 	}
+	w.Write(response)
+	return
+}
 
 // GetUser returns a user by ID
 func GetUser(c *fiber.Ctx) error {
