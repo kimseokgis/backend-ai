@@ -40,8 +40,3 @@ func ValidatePassword(conn *mongo.Database, user model.User) bool {
 	}
 	return CheckPasswordHash(user.Password, storedUser.PasswordHash)
 }
-
-func HashPass(passwordhash string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(passwordhash), 14)
-	return string(bytes), err
-}
