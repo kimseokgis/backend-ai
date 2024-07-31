@@ -36,3 +36,7 @@ func isAllowedOrigin(origin string) bool {
 			return true
 		}
 	}
+	return false
+}
+
+func SetAccessControlHeaders(w http.ResponseWriter, r *http.Request) bool {
