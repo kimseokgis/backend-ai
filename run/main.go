@@ -4,13 +4,14 @@ import (
 	"github.com/kimseokgis/backend-ai/url"
 	"log"
 	"net/http"
-	"github.com/kimseokgis/backend-ai/routes"
+	"time"
 )
 
-func main() {
-	app := fiber.New()
+// Define the logging middleware
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-	// Connect to the database
+		
 	config.ConnectDatabase()
 
 	// Middleware
