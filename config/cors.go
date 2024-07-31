@@ -50,3 +50,6 @@ func SetAccessControlHeaders(w http.ResponseWriter, r *http.Request) bool {
 			w.Header().Set("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT")
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Max-Age", "3600")
+			w.WriteHeader(http.StatusNoContent)
+			return true
+		}
