@@ -9,9 +9,9 @@ import (
 // GenerateToken creates a new PASETO token
 func GenerateToken(userID string) (string, error) {
 	now := time.Now()
-	"https://iteung.ulbi.ac.id",
-	"https://whatsauth.github.io",
-	"https://rofinafiin.github.io",
+	builder := paseto.NewToken().
+		SetIssuedAt(now).
+		SetExpiration(now.Add(24 * time.Hour)).
 	"https://gocroot.github.io/",
 	"https://gocroot-baru.herokuapp.com/",
 	"https://kimseokgis.github.io",
