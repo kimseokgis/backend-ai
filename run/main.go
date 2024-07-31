@@ -9,8 +9,10 @@ import (
 
 func main() {
 	app := fiber.New()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		start := time.Now()
+
+	// Connect to the database
+	config.ConnectDatabase()
+	
 		log.Printf("Started %s %s", r.Method, r.URL.Path)
 
 		next.ServeHTTP(w, r)
