@@ -15,3 +15,10 @@ func main() {
 
 	// Middleware
 	app.Use(cors.New())
+
+		// Setup routes
+		routes.SetupRoutes(app)
+
+		// Start the server
+		app.Listen(":8080")
+}
