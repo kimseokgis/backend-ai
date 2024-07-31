@@ -25,9 +25,9 @@ func GetUser(c *fiber.Ctx) error {
 	return c.JSON(user)
 }
 
-func NotFound(respw http.ResponseWriter, req *http.Request) {
-	var resp model.Response
-	resp.Message = "Not Found"
+// CreateUser creates a new user
+func CreateUser(c *fiber.Ctx) error {
+	var user model.User
 	helper.WriteJSON(respw, http.StatusNotFound, resp)
 }
 
